@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <title>IWEK Demo</title>
+  <meta name="description" content="Admin, Dashboard, Bootstrap, Bootstrap 4, Angular, AngularJS" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimal-ui" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  <!-- for ios 7 style, multi-resolution icon of 152x152 -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-barstyle" content="black-translucent">
+  <link rel="apple-touch-icon" href="../assets/images/logo.png">
+  <meta name="apple-mobile-web-app-title" content="Flatkit">
+  <!-- for Chrome on Android, multi-resolution icon of 196x196 -->
+  <meta name="mobile-web-app-capable" content="yes">
+  <link rel="shortcut icon" sizes="196x196" href="../assets/images/HIT.jpg">
+
+  <!-- style -->
+  <link rel="stylesheet" href="../assets/animate.css/animate.min.css" type="text/css" />
+  <link rel="stylesheet" href="../assets/glyphicons/glyphicons.css" type="text/css" />
+  <link rel="stylesheet" href="../assets/font-awesome/css/font-awesome.min.css" type="text/css" />
+  <link rel="stylesheet" href="../assets/material-design-icons/material-design-icons.css" type="text/css" />
+
+  <link rel="stylesheet" href="../assets/bootstrap/dist/css/bootstrap.min.css" type="text/css" />
+  <!-- build:css ../assets/styles/app.min.css -->
+  <link rel="stylesheet" href="../assets/styles/app.css" type="text/css" />
+  <!-- endbuild -->
+  <link rel="stylesheet" href="../assets/styles/font.css" type="text/css" />
+  <!-- prism highlight -->
+  <link rel="stylesheet" href="../assets/styles/prism.css" type="text/css" />
+</head>
+
+<body>
+  <div class="app" id="app">
+
+    <!-- aside -->
+    <div id="aside" class="app-aside modal nav-dropdown">
+      <!-- fluid app aside -->
+      <div class="left navside light dk" data-layout="column">
+        <div class="navbar no-radius">
+          <!-- brand -->
+          <a class="navbar-brand">
+            <span class="hidden-folded inline">DEMO : IWEK</span>
+          </a>
+          <!-- / brand -->
+        </div>
+        <div class="hide-scroll" data-flex>
+          <nav class="scroll nav-light">
+
+            <ul class="nav" ui-nav>
+              <li class="nav-header hidden-folded">
+                <small class="text-muted">Components</small>
+              </li>
+
+              <li>
+                <a href="dashboard.html">
+                  <span class="nav-icon">
+                    <i class="material-icons">&#xe3fc;
+                      <span ui-include="'../assets/images/i_0.svg'"></span>
+                    </i>
+                  </span>
+                  <span class="nav-text">Dashboard</span>
+                </a>
+              </li>
+              <li>
+                <a href="analyze.html">
+                  <span class="nav-icon">
+                    <i class="material-icons">&#xe5c3;
+                      <span ui-include="'../assets/images/i_0.svg'"></span>
+                    </i>
+                  </span>
+                  <span class="nav-text">Analyze</span>
+                </a>
+              </li>
+
+              <li class="nav-header hidden-folded">
+                <small class="text-muted">Help</small>
+              </li>
+
+              <li class="hidden-folded">
+                <a href="docs.html">
+                  <span class="nav-text">Gitee</span>
+                </a>
+              </li>
+
+            </ul>
+          </nav>
+        </div>
+
+      </div>
+    </div>
+    <!-- / -->
+
+    <!-- content -->
+    <div id="content" class="app-content box-shadow-z0" role="main">
+      <div class="app-header white box-shadow">
+        <div class="navbar navbar-toggleable-sm flex-row align-items-center">
+          <!-- Open side - Naviation on mobile -->
+          <a data-toggle="modal" data-target="#aside" class="hidden-lg-up mr-3">
+            <i class="material-icons">&#xe5d2;</i>
+          </a>
+          <!-- / -->
+
+          <!-- Page title - Bind to $state's title -->
+          <div class="mb-0 h5 no-wrap" ng-bind="$state.current.data.title" id="pageTitle"></div>
+
+          <!-- navbar collapse -->
+          <div class="collapse navbar-collapse" id="collapse">
+            <!-- link and dropdown -->
+            <ul class="nav navbar-nav mr-auto">
+              <li class="nav-item dropdown">
+                <a class="nav-link" href data-toggle="dropdown">
+                  <i class="fa fa-fw fa-plus text-muted"></i>
+                  <span>New</span>
+                </a>
+                <div ui-include="'../views/blocks/dropdown.new.html'"></div>
+              </li>
+            </ul>
+
+            <div ui-include="'../views/blocks/navbar.form.html'"></div>
+            <!-- / -->
+          </div>
+          <!-- / navbar collapse -->
+
+          <!-- navbar right -->
+          <ul class="nav navbar-nav ml-auto flex-row">
+            <li class="nav-item dropdown pos-stc-xs">
+              <a class="nav-link mr-2" href data-toggle="dropdown">
+                <i class="material-icons">&#xe7f5;</i>
+                <span class="label label-sm up warn">3</span>
+              </a>
+              <div ui-include="'../views/blocks/dropdown.notification.html'"></div>
+            </li>
+
+            <li class="nav-item hidden-md-up">
+              <a class="nav-link pl-2" data-toggle="collapse" data-target="#collapse">
+                <i class="material-icons">&#xe5d4;</i>
+              </a>
+            </li>
+          </ul>
+          <!-- / navbar right -->
+        </div>
+      </div>
+      <div class="app-footer">
+        <div class="p-2 text-xs">
+          <div class="pull-right text-muted py-1">
+            &copy; Copyright <strong>IWEK</strong> <span class="hidden-xs-down">- Built with Love</span>
+            <a ui-scroll-to="content"><i class="fa fa-long-arrow-up p-x-sm"></i></a>
+          </div>
+          <div class="nav">
+            <a class="nav-link">About</a>
+            <a class="nav-link">Get it</a>
+          </div>
+        </div>
+      </div>
+      <div ui-view class="app-body" id="view">
+
+        <!-- ############ PAGE START-->
+        <div class="p-a white lt box-shadow">
+          <div class="row">
+            <div class="col-sm-6">
+              <h4 class="mb-0 _300">Welcome to IWEK Knob Estimator !</h4>
+              <small class="text-muted">An <strong>What-if</strong> Knob Estimator</small>
+            </div>
+          </div>
+        </div>
+        <div class="padding" style="padding-bottom: 2px;">
+          <div class="row">
+            <div class="col-xs-6 col-sm-6" style="padding-bottom: 0
+            ;">
+              <div class="box p-a">
+                <div class="pull-left m-r">
+                  <span class="w-48 rounded  accent">
+                    <i class="material-icons">&#xe151;</i>
+                  </span>
+                </div>
+                <div class="clear">
+                  <h4 class="m-0 text-lg _300">16 <span class="text-sm">Experiences</span></h4>
+                  <small class="text-muted">Experience Repository</small>
+                </div>
+              </div>
+            </div>
+            <div class="col-xs-6 col-sm-6">
+              <div class="box p-a ">
+                <div class="pull-left m-r">
+                  <span class="w-48 rounded primary">
+                    <i class="material-icons">&#xe8b8;</i>
+                  </span>
+                </div>
+                <div class="clear">
+                  <h4 class="m-0 text-lg _300">12 <span class="text-sm">Knobs</span></h4>
+                  <small class="text-muted">Union Set of Historical Transferable Knobs</small>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+        <!-- config preview -->
+
+        <div class="padding" style="padding-top: 0%; padding-bottom: 0%;">
+          <div class="row">
+            <div class="col-sm-6 col-md-6">
+              <div class="box grey-100">
+                <div class="box-header">
+                  <h2>Config Preview</h2>
+                </div>
+                <div class="box">
+                  <div class="box-divider m-0"></div>
+                  <div class="box-body" style="height: 370px; overflow: auto;">
+                    Not upload yet
+                    <!-- <div>
+                        <pre class="line-numbers"><code id="config.yaml" class="language-yaml">None</code></pre>
+                      </div> -->
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-6 col-md-6">
+              <div class="box grey-100">
+                <div class="box-header">
+                  <h2>Settings</h2>
+                </div>
+                <div class="box">
+                  <div class="box-header">
+                    <h3>Configuration</h3>
+                  </div>
+                  <div class="box-divider m-0"></div>
+                  <div class="box-body">
+                    <form role="form">
+
+                      <div class="form-group row">
+                        <label for="inputPassword3" class="col-sm-3 form-control-label">SSH Password</label>
+                        <div class="col-sm-9">
+                          <input type="password" class="form-control" id="inputPassword3" placeholder="SSH Password">
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <label for="inputPassword3" class="col-sm-3 form-control-label">DB Password</label>
+                        <div class="col-sm-9">
+                          <input type="password" class="form-control" id="inputPassword3"
+                            placeholder="Database Password">
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <label for="inputPassword3" class="col-sm-3 form-control-label">Config File</label>
+                        <div class="col-sm-9">
+                          <input type="file" class="form-control">
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <label for="inputPassword3" class="col-sm-3 form-control-label">Knob Info File</label>
+                        <div class="col-sm-9">
+                          <input type="file" class="form-control">
+                        </div>
+                      </div>
+                      <div class="form-group row m-t-md">
+                        <div class="col-sm-offset-2 col-sm-2">
+                          <button type="submit" class="btn white grey-300 pull-right">Load</button>
+                        </div>
+                        <div class="col-sm-offset-2 col-sm-9">
+                          <a class="btn white primary pull-right" href="../html/analyze.html">Start</a>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+        <!-- settings for host and database -->
+        <div class="padding" style="padding-top: 0%;">
+          <div class="box green-50">
+            <div class="box-header">
+              <h2>Experirence Repository</h2>
+            </div>
+            <div class="box-tool">
+              <ul class="nav">
+                <li class="nav-item inline">
+                  <a class="nav-link">
+                    <i class="material-icons md-18">&#xe863;</i>
+                  </a>
+                </li>
+                <li class="nav-item inline dropdown">
+                  <a class="nav-link" data-toggle="dropdown">
+                    <i class="material-icons md-18">&#xe5d4;</i>
+                  </a>
+                  <div class="dropdown-menu dropdown-menu-scale pull-right">
+                    <a class="dropdown-item" href>Experience 1</a>
+                    <a class="dropdown-item" href>Experience 2</a>
+                    <a class="dropdown-item" href>Experience 3</a>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="box">
+              <div class="box-divider m-0"></div>
+              <div class="row">
+                <div class="col-sm-6">
+                  <!-- chart for workload feature -->
+                  <div class="box">
+                    <div class="box-header">
+                      <h3>Workload Feature</h3>
+                      <small class="block text-muted">SUID & Operator Rate</small>
+                    </div>
+                    <div class="box-body">
+                      <div ui-jp="chart" ui-options="{
+                          tooltip : {
+                              trigger: 'item',
+                              formatter: '{a} <br/>{b} : {c} ({d}%)'
+                          },
+                          legend: {
+                              orient : 'vertical',
+                              x : 'left',
+                              data:['S','U','I','D','Join','Hash','Scan','Hash Join','Index Scan','Bitmap Scan','Other']
+                          },
+                          calculable : false,
+                          series : [
+                              {
+                                  name:'Source',
+                                  type:'pie',
+                                  selectedMode: 'single',
+                                  radius : [0, 50],
+                                  
+                                  // for funnel
+                                  x: '20%',
+                                  width: '40%',
+                                  funnelAlign: 'right',
+                                  max: 1548,
+                                  
+                                  itemStyle : {
+                                      normal : {
+                                          label : {
+                                              position : 'inner'
+                                          },
+                                          labelLine : {
+                                              show : false
+                                          }
+                                      }
+                                  },
+                                  data:[
+                                      {value:335, name:'S'},
+                                      {value:679, name:'U'},
+                                      {value:1548, name:'I'},
+                                      {value:335, name:'D'},
+                                  ]
+                              },
+                              {
+                                  name:'Source',
+                                  type:'pie',
+                                  radius : [80, 100],
+                                  
+                                  // for funnel
+                                  x: '60%',
+                                  width: '35%',
+                                  funnelAlign: 'left',
+                                  max: 1048,
+                                  
+                                  data:[
+                                      {value:310, name:'Join'},
+                                      {value:234, name:'Scan'},
+                                      {value:135, name:'Hash Join'},
+                                      {value:1048, name:'Index Scan'},
+                                      {value:251, name:'Bitmap Scan'},
+                                      {value:147, name:'Hash'},
+                                      {value:102, name:'Other'}
+                                  ]
+                              }
+                          ]
+                      }" style="height:300px">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-sm-6">
+                  <div class="box">
+                    <div class="box-header">
+                      <h3>Knob Importance</h3>
+                      <small class="block text-muted">Sorted by Knob Importance</small>
+                    </div>
+                    <div class="box-body">
+                      <div ui-jp="chart" ui-options=" {
+                        tooltip : {
+                            trigger: 'axis'
+                        },
+                        legend: {
+                            data:['Knob Importance']
+                        },
+                        calculable : true,
+                        xAxis : [
+                            {
+                                type : 'category',
+                                data : ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec']
+                            }
+                        ],
+                        yAxis : [
+                            {
+                                type : 'value'
+                            }
+                        ],
+                        series : [
+                            {
+                                name:'Knob Importance',
+                                type:'bar',
+                                data:[ 162.2, 135.6, 76.7, 32.6, 25.6, 23.2, 20.0, 7.0, 6.4, 4.9, 3.3, 2.0],
+                                markPoint : {
+                                    data : [
+                                        {type : 'max', name: 'Max'},
+                                        {type : 'min', name: 'Min'}
+                                    ]
+                                },
+                                markLine : {
+                                    data : [
+                                        {type : 'average', name: 'Average'}
+                                    ]
+                                }
+                            }
+                        ]
+                      }" style="height:300px">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- ############ PAGE END-->
+
+        </div>
+      </div>
+      <!-- ############ LAYOUT END-->
+
+    </div>
+    <!-- build:js scripts/app.html.js -->
+    <!-- jQuery -->
+    <script src="../libs/jquery/jquery/dist/jquery.js"></script>
+    <!-- Bootstrap -->
+    <script src="../libs/jquery/tether/dist/js/tether.min.js"></script>
+    <script src="../libs/jquery/bootstrap/dist/js/bootstrap.js"></script>
+    <!-- core -->
+    <script src="../libs/jquery/underscore/underscore-min.js"></script>
+    <script src="../libs/jquery/jQuery-Storage-API/jquery.storageapi.min.js"></script>
+    <script src="../libs/jquery/PACE/pace.min.js"></script>
+
+    <script src="scripts/config.lazyload.js"></script>
+
+    <script src="scripts/palette.js"></script>
+    <script src="scripts/ui-load.js"></script>
+    <script src="scripts/ui-jp.js"></script>
+    <script src="scripts/ui-include.js"></script>
+    <script src="scripts/ui-device.js"></script>
+    <script src="scripts/ui-form.js"></script>
+    <script src="scripts/ui-nav.js"></script>
+    <script src="scripts/ui-screenfull.js"></script>
+    <script src="scripts/ui-scroll-to.js"></script>
+    <script src="scripts/ui-toggle-class.js"></script>
+
+    <script src="scripts/app.js"></script>
+
+    <!-- ajax -->
+    <script src="../libs/jquery/jquery-pjax/jquery.pjax.js"></script>
+    <script src="scripts/ajax.js"></script>
+
+    <!-- prism highklight -->
+    <script src="../libs/js/prism/prism.js"></script>
+
+    <!-- endbuild -->
+</body>
+
+</html>
