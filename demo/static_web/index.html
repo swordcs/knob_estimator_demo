@@ -113,7 +113,8 @@
               class="label accent">OpenGauss</span>
             database knobs, and we've already intergrated it into <span class="label accent">OpenGauss-DBMind</span> !
           </h5>
-          <a href="html/dashboard.html" class="btn btn-lg btn-outline b-primary text-primary b-2x pull-right">See the
+          <a href="html/dashboard.html" class="btn btn-lg btn-outline b-primary text-primary b-2x pull-right"
+            onclick="">See the
             demo</a>
         </div>
       </div>
@@ -144,6 +145,12 @@
   <script src="libs/jquery/tether/dist/js/tether.min.js"></script>
   <script src="libs/jquery/bootstrap/dist/js/bootstrap.js"></script>
   <script src="html/scripts/ui-scroll-to.js"></script>
+  <script src="/eel.js"></script>
+  <script type="text/javascript">
+    function get_result() {
+      eel.hello();
+    }
+  </script>
 </body>
 
 </html>
