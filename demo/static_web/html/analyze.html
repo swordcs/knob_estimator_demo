@@ -178,56 +178,16 @@
                   <h6>Data Collection</h6>
                   <div>
                     <div class="box-body">
-                      <div ui-jp="chart" ui-options=" {
-                          tooltip : {
-                              trigger: 'axis'
-                          },
-                          legend: {
-                              data:['Performance']
-                          },
-                          calculable : true,
-                          xAxis : [
-                              {
-                                  type : 'category',
-                                  boundaryGap : false,
-                                  data : ['1','2','3','4','5','6','7']
-                              }
-                          ],
-                          yAxis : [
-                              {
-                                  type : 'value',
-                                  axisLabel : {
-                                      formatter: '{value}'
-                                  }
-                              }
-                          ],
-                          series : [
-                              {
-                                  name:'Performance',
-                                  type:'line',
-                                  data:[300, 800, 900, 800, 500, 800, 1000],
-                                  markPoint : {
-                                      data : [
-                                          {type : 'max', name: 'Max'},
-                                          {type : 'min', name: 'Min'}
-                                      ]
-                                  },
-                                  markLine : {
-                                      data : [
-                                          {type : 'average', name: 'Average'}
-                                      ]
-                                  }
-                              }
-                          ]
-                        }" style="height:250px;">
+                      <div id="data_collection" ui-jp="chart" ui-options="" style="height:250px;">
                       </div>
                     </div>
                   </div>
                   <h7>progress</h7>
                   <div style="padding-top: 10px;">
                     <div class="progress mb-2">
-                      <div class="progress-bar progress-bar-striped progress-bar-animated primary" style="width: 25%">
-                        25%
+                      <div id="progress_bar" class="progress-bar progress-bar-striped progress-bar-animated primary"
+                        style="width: 0%">
+                        0%
                       </div>
                     </div>
                   </div>
@@ -389,7 +349,7 @@
                     </div>
                     <div class="box-body">
                       <div id="experience_weight" ui-jp="plot" ui-refresh="app.setting.color" ui-options=""
-                        style="height:350px">
+                        style="height:400px">
                       </div>
                     </div>
                   </div>
@@ -557,6 +517,45 @@
         const chart1Data = await eel.data_knob_estimation()();
         renderChart(chart1Data, "knob_estimation");
       }
+      async function update_data() {
+        const chartElement = document.getElementById("data_collection");
+        const progressBar = document.getElementById("progress_bar");
+        const chart = echarts.init(chartElement);
+        const chartData = await eel.get_chart_data()();
+        const progress = await eel.get_count()();
+        const newData = JSON.parse(chartData);
+        const option = {
+          tooltip: {
+            trigger: 'axis'
+          },
+          legend: {
+            data: ['Performance']
+          },
+          calculable: true,
+          xAxis: [
+            {
+              type: 'category',
+              boundaryGap: false,
+              data: ['1', '2', '3', '4', '5', '6', '7']
+            }
+          ],
+          yAxis: [
+            {
+              type: 'value',
+              axisLabel: {
+                formatter: '{value}'
+              }
+            }
+          ],
+          series: newData.series,
+        };
+        chart.setOption(option);
+        progressBar.innerText = progress + "%";
+        progressBar.style.width = progress + "%";
+      }
+      const pollingInterval = 5000;
+      setInterval(update_data, pollingInterval);
+      update_data();
     </script>
     <!-- endbuild -->
 </body>

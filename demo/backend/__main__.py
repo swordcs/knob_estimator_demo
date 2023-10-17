@@ -2,6 +2,7 @@ import os
 import time
 import eel
 import json
+import threading
 
 
 @eel.expose
@@ -119,7 +120,7 @@ def data_knob_importance():
 
     data = {
         "tooltip": {
-            "trigger": 'axis'
+            "trigger": 'item'
         },
         "legend": {
             "data": ['Knob Importance']
@@ -147,7 +148,7 @@ def data_knob_importance():
             "data": [18203, 23489, 29034, 104970, 131744, 630230],
             "itemStyle": {
                 "normal": {
-                    "color": '#F08080'
+                    "color": '#0cc2aa'
                 }
             }
         }]
@@ -158,61 +159,50 @@ def data_knob_importance():
 @eel.expose
 def data_experience_weight():
     data = {
-        "data": [{
-            "data": [[1, 2], [2, 4], [3, 5], [4, 7], [5, 6], [6, 4], [7, 5],
-                     [8, 4]]
-        }, {
-            "data": [[1, 3], [2, 4], [3, 3], [4, 6], [5, 5], [6, 4], [7, 5],
-                     [8, 3]]
-        }],
-        "bars": {
-            "show": True,
-            "fill": True,
-            "barWidth": 0.3,
-            "lineWidth": 1,
-            "order": 1,
-            "fillColor": {
-                "colors": [{
-                    "opacity": 0.5
-                }, {
-                    "opacity": 0.9
-                }]
-            },
-            "align": "center"
+        "tooltip": {
+            "trigger": "item",
+            "formatter": "{a}:{c}"
         },
-        "colors": ["#0cc2aa", "#fcc100"],
-        "series": {
-            "shadowSize": 3
-        },
-        "xaxis": {
-            "show": True,
-            "font": {
-                "color": "#ccc"
-            },
-            "position": "bottom"
-        },
-        "yaxis": {
-            "show": True,
-            "font": {
-                "color": "#ccc"
-            }
-        },
-        "grid": {
-            "hoverable": True,
-            "clickable": True,
-            "borderWidth": 0,
-            "color": "rgba(120,120,120,0.5)"
-        },
-        "tooltip":
+        "calculable":
         True,
-        "tooltipOpts": {
-            "content": "%x.0 is %y.4",
-            "defaultTheme": False,
-            "shifts": {
-                "x": 0,
-                "y": -40
+        "legend": {
+            "data": ["1", "2", "3"]
+        },
+        "xAxis": [{
+            "type": "category",
+            "data": ["1", "2", "3", "4", "5"],
+        }],
+        "yAxis": [{
+            "type": "value"
+        }],
+        "series": [{
+            "name": "1",
+            "type": "bar",
+            "data": [100, 400, 700, 1000, 1300],
+            "itemStyle": {
+                "normal": {
+                    "color": "#0cc2aa"
+                }
             }
-        }
+        }, {
+            "name": "2",
+            "type": "bar",
+            "data": [200, 500, 800, 1100, 1400],
+            "itemStyle": {
+                "normal": {
+                    "color": "#fcc100"
+                }
+            }
+        }, {
+            "name": "3",
+            "type": "bar",
+            "data": [300, 600, 900, 1200, 1499],
+            "itemStyle": {
+                "normal": {
+                    "color": "#a88add"
+                }
+            }
+        }]
     }
     return json.dumps(data)
 
@@ -221,7 +211,7 @@ def data_experience_weight():
 def data_knob_effect():
     data = {
         "tooltip": {
-            "trigger": "axis"
+            "trigger": "item"
         },
         "legend": {
             "data": ["shared_buffers"]
@@ -263,7 +253,7 @@ def data_knob_effect():
             },
             "itemStyle": {
                 "normal": {
-                    "color": "#F08080"
+                    "color": "#fcc100"
                 }
             }
         }]
@@ -275,7 +265,7 @@ def data_knob_effect():
 def data_knob_estimation():
     data = {
         "tooltip": {
-            "trigger": "axis"
+            "trigger": "item"
         },
         "calculable":
         True,
@@ -312,6 +302,88 @@ def data_knob_estimation():
         }]
     }
     return json.dumps(data)
+
+
+@eel.expose
+def echartsdata():
+    data = {
+        "legend": {},
+        "tooltip": {},
+        "dataset": {
+            "source": [['product', '2015', '2016', '2017'],
+                       ['Matcha Latte', 43.3, 85.8, 93.7],
+                       ['Milk Tea', 83.1, 73.4, 55.1],
+                       ['Cheese Cocoa', 86.4, 65.2, 82.5],
+                       ['Walnut Brownie', 72.4, 53.9, 39.1]]
+        },
+        "xAxis": {
+            "type": 'category'
+        },
+        "yAxis": {},
+        "series": [{
+            "type": 'bar'
+        }, {
+            "type": 'bar'
+        }, {
+            "type": 'bar'
+        }]
+    }
+    return json.dumps(data)
+
+
+chart_data = {
+    "series": [{
+        "name": 'Performance',
+        "type": 'line',
+        "data": [300, 800, 900, 800, 500, 800, 1000],
+        "markPoint": {
+            "data": [{
+                "type": 'max',
+                "name": 'Max'
+            }, {
+                "type": 'min',
+                "name": 'Min'
+            }]
+        },
+        "markLine": {
+            "data": [{
+                "type": 'average',
+                "name": 'Average'
+            }]
+        }
+    }]
+}
+count = 0
+
+
+def update_chart_data():
+    global chart_data
+    import random
+    new_data = [random.randint(500, 1000) for _ in range(7)]
+    chart_data["series"][0]["data"] = new_data
+
+
+def run_update_thread():
+    global count  # 初始化计数器
+    while count < 100:  # 更新100次后结束任务
+        update_chart_data()
+        count += 1
+        eel.sleep(5)
+
+
+update_thread = threading.Thread(target=run_update_thread)
+update_thread.daemon = True
+update_thread.start()
+
+
+@eel.expose
+def get_chart_data():
+    return json.dumps(chart_data)
+
+
+@eel.expose
+def get_count():
+    return count
 
 
 eel.init(str(os.path.split(os.path.realpath(__file__))[0]) + '/../static_web')
