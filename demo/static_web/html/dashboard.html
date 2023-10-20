@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="utf-8" />
-  <title>IWEK Demo</title>
+  <title>EAST Demo</title>
   <meta name="description" content="Admin, Dashboard, Bootstrap, Bootstrap 4, Angular, AngularJS" />
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimal-ui" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -42,7 +42,7 @@
         <div class="navbar no-radius">
           <!-- brand -->
           <a class="navbar-brand">
-            <span class="hidden-folded inline">DEMO : IWEK</span>
+            <span class="hidden-folded inline">DEMO : EAST</span>
           </a>
           <!-- / brand -->
         </div>
@@ -146,7 +146,7 @@
       <div class="app-footer">
         <div class="p-2 text-xs">
           <div class="pull-right text-muted py-1">
-            &copy; Copyright <strong>IWEK</strong> <span class="hidden-xs-down">- Built with Love</span>
+            &copy; Copyright <strong>EAST</strong> <span class="hidden-xs-down">- Built with Love</span>
             <a ui-scroll-to="content"><i class="fa fa-long-arrow-up p-x-sm"></i></a>
           </div>
           <div class="nav">
@@ -161,7 +161,7 @@
         <div class="p-a white lt box-shadow">
           <div class="row">
             <div class="col-sm-6">
-              <h4 class="mb-0 _300">Welcome to IWEK Knob Estimator !</h4>
+              <h4 class="mb-0 _300">Welcome to EAST Knob Estimator !</h4>
               <small class="text-muted">An <strong>What-if</strong> Knob Estimator</small>
             </div>
           </div>
@@ -177,7 +177,7 @@
                   </span>
                 </div>
                 <div class="clear">
-                  <h4 class="m-0 text-lg _300">16 <span class="text-sm">Experiences</span></h4>
+                  <h4 class="m-0 text-lg _300" id="experienceNum">0 <span class="text-sm">Experiences</span></h4>
                   <small class="text-muted">Experience Repository</small>
                 </div>
               </div>
@@ -190,7 +190,7 @@
                   </span>
                 </div>
                 <div class="clear">
-                  <h4 class="m-0 text-lg _300">12 <span class="text-sm">Knobs</span></h4>
+                  <h4 class="m-0 text-lg _300" id="knobNum">0 <span class="text-sm">Knobs</span></h4>
                   <small class="text-muted">Union Set of Historical Transferable Knobs</small>
                 </div>
               </div>
@@ -211,10 +211,10 @@
                 <div class="box">
                   <div class="box-divider m-0"></div>
                   <div class="box-body" style="height: 370px; overflow: auto;">
-                    Not upload yet
-                    <!-- <div>
-                        <pre class="line-numbers"><code id="config.yaml" class="language-yaml">None</code></pre>
-                      </div> -->
+                    <!-- Not upload yet -->
+                    <div id="config_preview">
+                      <!-- <pre class="line-numbers"><code id="config.yaml" class="language-yaml"><br></code></pre> -->
+                    </div>
                   </div>
                 </div>
               </div>
@@ -259,7 +259,7 @@
                       </div>
                       <div class="form-group row m-t-md">
                         <div class="col-offset-3 col-sm-3">
-                          <button type="submit" class="btn white grey-300 pull-right" onclick="load()">Load</button>
+                          <a class="btn white grey-300 pull-right" onclick="load()">Load</a>
                         </div>
                         <div class="col-sm-offset-2 col-sm-8">
                           <a class="btn white primary pull-right" href="../html/analyze.html"
@@ -384,11 +384,86 @@
         const option = JSON.parse(chartData);
         chart.setOption(option);
       }
+
       async function analyze() {
         const chart1Data = await eel.data_workload_feature()();
         const chart2Data = await eel.data_knob_importance()();
         renderChart(chart1Data, "workload_feature");
         renderChart(chart2Data, "knob_importance");
+      }
+
+      async function load() {
+        const experienceNum = document.getElementById("experienceNum");
+        const knobNum = document.getElementById("knobNum");
+        experienceNum.innerText = 8;
+        knobNum.innerText = 12;
+
+        const configData = document.getElementById("config_preview");
+        const pre = document.createElement('pre');
+        pre.className = 'line-numbers';
+
+        // 创建code元素  
+        const code = document.createElement('code');
+        code.id = 'config.yaml';
+        code.className = 'language-yaml';
+        code.innerHTML = `common:
+  exp_pool: 
+  query_num: 100
+  time_window: 10min
+  operator: true
+  data_path: /home/gauss/DBMind/data
+  host: 127.0.0.1
+  host_user: gauss
+  ssh_port: 22
+
+database:
+  port: 5432
+  user: dba
+  name: test
+  GAUSSHOME: /opt/opengauss
+
+collect:
+  size: 100
+  seeds: 1234
+  file_dir: /home/gauss/DBMind/data
+  sample_policy: lhs # lhs,bucket
+  workload:
+    name: ycsb
+    tool_path: /home/gauss/DBMind/benchbase
+    weights: 50,5,15,10,10,10
+  knob_candidates:
+    - shared_buffers
+    - effective_cache_size
+    - work_mem
+    - maintenance_work_mem
+    - max_connections
+    - commit_delay
+    - geqo_effort
+    - random_page_cost
+
+    
+evaluate:
+  model_path: /home/gauss/DBMind/model
+  exp_num: 10
+  new_conf:
+    work_mem: 4096kB
+    maintenance_work_mem: 8192kB
+    commit_delay: 100
+    random_page_cost: 1.1
+  old_conf:
+    work_mem: 2048kB
+    maintenance_work_mem: 8192kB
+    commit_delay: 150
+    random_page_cost: 2.1
+`;
+        pre.appendChild(code);
+        while (configData.firstChild) {
+          configData.removeChild(configData.firstChild);
+        }
+
+        configData.appendChild(pre);
+        Prism.highlightElement(code);
+        analyze();
       }
     </script>
     <!-- endbuild -->

@@ -335,7 +335,7 @@ chart_data = {
     "series": [{
         "name": 'Performance',
         "type": 'line',
-        "data": [300, 800, 900, 800, 500, 800, 1000],
+        "data": [0],
         "markPoint": {
             "data": [{
                 "type": 'max',
@@ -354,30 +354,47 @@ chart_data = {
     }]
 }
 count = 0
+collecting = False
+
+import random
+total_data = [0] + [random.randint(20, 4000) for _ in range(100)]
 
 
-def update_chart_data():
-    global chart_data
-    import random
-    new_data = [random.randint(500, 1000) for _ in range(7)]
-    chart_data["series"][0]["data"] = new_data
+# def update_chart_data():
+#     global chart_data
+#     global total_data
+#     global count
+#     chart_data["series"][0]["data"] = total_data[:1 + count]
 
 
-def run_update_thread():
-    global count  # 初始化计数器
-    while count < 100:  # 更新100次后结束任务
-        update_chart_data()
-        count += 1
-        eel.sleep(5)
+# def run_update_thread():
+#     global count  # 初始化计数器
+#     while count < 100:  # 更新100次后结束任务
+#         if not collecting:
+#             eel.sleep(1)
+#             continue
+#         print("updating")
+#         update_chart_data()
+#         count += 1
+#         eel.sleep(5)
 
-
-update_thread = threading.Thread(target=run_update_thread)
-update_thread.daemon = True
-update_thread.start()
+@eel.expose
+def start_run():
+    global collecting
+    print("run ok stated")
+    collecting = True
+    # update_thread = threading.Thread(target=run_update_thread)
+    # update_thread.daemon = True
+    # update_thread.start()
 
 
 @eel.expose
 def get_chart_data():
+    global count
+    global collecting
+    if count < 100 and collecting:
+        chart_data["series"][0]["data"] = total_data[:1 + count]
+        count += 1
     return json.dumps(chart_data)
 
 

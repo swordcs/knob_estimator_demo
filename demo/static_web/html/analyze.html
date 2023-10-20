@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="utf-8" />
-  <title>IWEK Demo</title>
+  <title>EAST Demo</title>
   <meta name="description" content="Admin, Dashboard, Bootstrap, Bootstrap 4, Angular, AngularJS" />
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimal-ui" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -42,7 +42,7 @@
         <div class="navbar no-radius">
           <!-- brand -->
           <a class="navbar-brand">
-            <span class="hidden-folded inline">DEMO : IWEK</span>
+            <span class="hidden-folded inline">DEMO : EAST</span>
           </a>
           <!-- / brand -->
         </div>
@@ -146,7 +146,7 @@
       <div class="app-footer">
         <div class="p-2 text-xs">
           <div class="pull-right text-muted py-1">
-            &copy; Copyright <strong>IWEK</strong> <span class="hidden-xs-down">- Built with Love</span>
+            &copy; Copyright <strong>EAST</strong> <span class="hidden-xs-down">- Built with Love</span>
             <a ui-scroll-to="content"><i class="fa fa-long-arrow-up p-x-sm"></i></a>
           </div>
           <div class="nav">
@@ -161,7 +161,7 @@
         <div class="p-a white lt box-shadow">
           <div class="row">
             <div class="col-sm-6">
-              <h4 class="mb-0 _300">Analyze View of IWEK Estimator</h4>
+              <h4 class="mb-0 _300">Analyze View of EAST Estimator</h4>
               <small class="text-muted">An <strong>What-if</strong> Knob Estimator</small>
             </div>
           </div>
@@ -249,7 +249,7 @@
                           </span>
                         </div> -->
                         <div class="offset-10 col-sm-1">
-                          <button type="submit" class="btn success pull-right" onclick="run()">Run</button>
+                          <a class="btn success pull-right" onclick="start_run()">Run</a>
                         </div>
 
                       </div>
@@ -404,7 +404,7 @@
                             <p style="color: grey;"># work_mem: 64MB</p>
                             <p style="color: grey;"># ...</p>
                             <p>new_conf:</p>
-                            <p style="color: grey;"># work_mem: 32MB</p>
+                            <p style="color: grey;">work_mem: 4096kB</p>
                             <p style="color: grey;"># ...</p>
                           </div>
                         </div>
@@ -423,7 +423,7 @@
                   <div class="box">
                     <div class="box-header" style="padding-bottom: 0%;">
                       <h3>Result </h3>
-                      <small class="block text-muted">Knob Tuning Result And Advice Given by IWEK</small>
+                      <small class="block text-muted">Knob Tuning Result And Advice Given by EAST</small>
                     </div>
                     <div class="p-a">
                       <div style="padding-left: 1%;">
@@ -494,6 +494,7 @@
     <!-- eel -->
     <script type="text/javascript" src="/eel.js"></script>
     <script>
+      var interval = null;
       async function renderChart(chartData, chartElementId) {
         const chartElement = document.getElementById(chartElementId);
         const chart = echarts.init(chartElement);
@@ -517,6 +518,14 @@
         const chart1Data = await eel.data_knob_estimation()();
         renderChart(chart1Data, "knob_estimation");
       }
+
+      async function start_run() {
+        update_data();
+        const pollingInterval = 6_000;
+        eel.start_run();
+        interval = setInterval(update_data, pollingInterval);
+      }
+
       async function update_data() {
         const chartElement = document.getElementById("data_collection");
         const progressBar = document.getElementById("progress_bar");
@@ -524,6 +533,10 @@
         const chartData = await eel.get_chart_data()();
         const progress = await eel.get_count()();
         const newData = JSON.parse(chartData);
+        let hours = [];
+        for (let i = 0; i <= progress; i++) {
+          hours.push(i);
+        }
         const option = {
           tooltip: {
             trigger: 'axis'
@@ -536,7 +549,7 @@
             {
               type: 'category',
               boundaryGap: false,
-              data: ['1', '2', '3', '4', '5', '6', '7']
+              data: hours
             }
           ],
           yAxis: [
@@ -552,10 +565,11 @@
         chart.setOption(option);
         progressBar.innerText = progress + "%";
         progressBar.style.width = progress + "%";
+        if (progress === 100){
+          clearInterval(interval);
+        }
       }
-      const pollingInterval = 5000;
-      setInterval(update_data, pollingInterval);
-      update_data();
+
     </script>
     <!-- endbuild -->
 </body>
