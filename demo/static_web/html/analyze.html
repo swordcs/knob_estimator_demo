@@ -271,12 +271,12 @@
               <ul class="nav" style="padding-top: 2px;">
                 <li class="nav-item inline">
                   <a class="nav-link">
-                    <i class="material-icons md-18" onclick="analyze()">&#xe163;</i>
+                    <i class="material-icons md-18" onclick="analyze('tpcc-2')">&#xe163;</i>
                   </a>
                 </li>
               </ul>
               <div class="box-header" style="padding-top: 7px;">
-                <h2 style="cursor: pointer;" onclick="analyze()">Analyze</h2>
+                <h2 style="cursor: pointer;" onclick="analyze('tpcc-2')">Analyze</h2>
               </div>
             </div>
             <div class="box">
@@ -330,9 +330,19 @@
                     <i class="material-icons md-18">&#xe5d4;</i>
                   </a>
                   <div class="dropdown-menu dropdown-menu-scale pull-right">
-                    <a class="dropdown-item" href>shared_buffers</a>
+                    <a class="dropdown-item" href>effective_cache_size</a>
+                    <a class="dropdown-item" href>geqo_selection_bias</a>
+                    <a class="dropdown-item" href>maintenance_work_mem</a>
+                    <a class="dropdown-item" href>max_wal_size</a>
+                    <a class="dropdown-item" href>random_page_cost</a>
                     <a class="dropdown-item" href>work_mem</a>
+                    <a class="dropdown-item" href>enable_nestloop</a>
+                    <a class="dropdown-item" href>full_page_writes</a>
                     <a class="dropdown-item" href>plan_cache_mode</a>
+                    <a class="dropdown-item" href>commit_delay</a>
+                    <a class="dropdown-item" href>shared_buffers</a>
+                    <a class="dropdown-item" href>wal_buffers</a>
+
                   </div>
                 </li>
               </ul>
@@ -341,17 +351,35 @@
               <div class="box-divider m-0"></div>
               <div class="row">
                 <div class="col-sm-6">
-                  <!-- chart for workload feature -->
                   <div class="box">
-                    <div class="box-header">
-                      <h3>Experience Weight</h3>
-                      <small>Knob Transfer Weight And Model Transfer Weight</small>
+                    <div class="box-header" style="padding-bottom: 0%;">
+                      <h3>Relative Performance </h3>
+                      <small class="block text-muted">Estimated Knob Performance</small>
                     </div>
-                    <div class="box-body">
-                      <div id="experience_weight" ui-jp="plot" ui-refresh="app.setting.color" ui-options=""
-                        style="height:400px">
+                    <div class="box-body" style="padding: 0%;">
+                      <div id="knob_estimation" ui-jp="chart" ui-options="" style="height:200px;">
                       </div>
                     </div>
+                    <div class="box-header" style="padding-bottom: 10px;padding-top: 0%;">
+                      <h3>Knob Settings </h3>
+                    </div>
+                    <div class="row padding">
+                      <div class="box-body col-sm-8" style="padding-top: 0%;padding-bottom: 0%;">
+                        <div class="box p-a m-b-md" style="height: 150px; overflow: auto;">
+
+                          <div class="box p-a m-b-md">
+                            <div ui-jp="summernote" ui-options="{airMode: true}">
+                              <p>old_conf:</p>
+                              <p>new_conf:</p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-sm-4" style="padding-left: 10%; padding-top: 20%; padding-bottom: 0%;">
+                        <a type="submit" class="btn info" onclick="estimate()">Estimate</a>
+                      </div>
+                    </div>
+
                   </div>
                 </div>
                 <div class="col-sm-6">
@@ -373,86 +401,7 @@
           <!-- ############ PAGE END-->
 
         </div>
-        <div class="padding" style="padding-top: 0%;">
-          <div class="box green-50">
-            <div class="box-header">
-              <h2>Knob Estimation</h2>
-            </div>
-            <div class="box">
-              <div class="box-divider m-0"></div>
-              <div class="row">
 
-                <div class="col-sm-6">
-                  <div class="box">
-                    <div class="box-header" style="padding-bottom: 0%;">
-                      <h3>Performance </h3>
-                      <small class="block text-muted">Estimated Knob Performance</small>
-                    </div>
-                    <div class="box-body" style="padding: 0%;">
-                      <div id="knob_estimation" ui-jp="chart" ui-options="" style="height:200px;">
-                      </div>
-                    </div>
-                    <div class="box-header" style="padding-bottom: 10px;padding-top: 0%;">
-                      <h3>Knob Settings </h3>
-                    </div>
-                    <div class="row padding">
-                      <div class="box-body col-sm-8" style="padding-top: 0%;padding-bottom: 0%;">
-                        <div class="box p-a m-b-md" style="height: 150px; overflow: auto;">
-                          <div ui-jp="summernote" ui-options="{airMode: true}">
-                            <p style="color: grey;"># knobs setting to estimate</p>
-                            <p>old_conf:</p>
-                            <p style="color: grey;"># work_mem: 64MB</p>
-                            <p style="color: grey;"># ...</p>
-                            <p>new_conf:</p>
-                            <p style="color: grey;">work_mem: 4096kB</p>
-                            <p style="color: grey;"># ...</p>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="col-sm-4" style="padding-left: 10%; padding-top: 20%; padding-bottom: 0%;">
-                        <button type="submit" class="btn info" onclick="estimate()">Estimate</button>
-                      </div>
-                      <!-- <div class="col-sm-1">
-                        <button type="submit" class="btn success pull-right">Run</button>
-                      </div> -->
-                    </div>
-
-                  </div>
-                </div>
-                <div class="col-sm-6">
-                  <div class="box">
-                    <div class="box-header" style="padding-bottom: 0%;">
-                      <h3>Result </h3>
-                      <small class="block text-muted">Knob Tuning Result And Advice Given by EAST</small>
-                    </div>
-                    <div class="p-a">
-                      <div style="padding-left: 1%;">
-                        <h7><b>Estimation Result</b></h7>
-                        <div class="padding">
-                          <p class="h-3x">Titudin venenatis ipsum ac feugiat. Vestibulum ullamcorper quam.</p>
-                        </div>
-
-
-                        <h7><b>Safety Analyze</b></h7>
-                        <div class="padding">
-                          <p>Titudin venenatis ipsum ac feugiat. Vestibulum ullamcorper quam.</p>
-                          <p>Titudin venenatis ipsum ac feugiat. Vestibulum ullamcorper quam.</p>
-                          <p>Titudin venenatis ipsum ac feugiat. Vestibulum ullamcorper quam.</p>
-                          <p>Titudin venenatis ipsum ac feugiat. Vestibulum ullamcorper quam.</p>
-                          <p>Titudin venenatis ipsum ac feugiat. Vestibulum ullamcorper quam.</p>
-                        </div>
-                      </div>
-
-                      <!-- <div><a href class="btn btn-xs white">Read More</a></div> -->
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-
-        </div>
       </div>
       <!-- ############ LAYOUT END-->
 
@@ -502,9 +451,9 @@
         chart.setOption(option);
       }
 
-      async function analyze() {
-        const chart1Data = await eel.data_workload_feature()();
-        const chart2Data = await eel.data_knob_importance()();
+      async function analyze(key) {
+        const chart1Data = await eel.data_workload_feature(key)();
+        const chart2Data = await eel.data_knob_importance(key)();
         renderChart(chart1Data, "workload_feature");
         renderChart(chart2Data, "knob_importance");
       }
@@ -534,7 +483,7 @@
         const progress = await eel.get_count()();
         const newData = JSON.parse(chartData);
         let hours = [];
-        for (let i = 0; i <= progress; i++) {
+        for (let i = (progress > 0 ? 1 : 0); i <= progress; i++) {
           hours.push(i);
         }
         const option = {
@@ -565,7 +514,7 @@
         chart.setOption(option);
         progressBar.innerText = progress + "%";
         progressBar.style.width = progress + "%";
-        if (progress === 100){
+        if (progress === 100) {
           clearInterval(interval);
         }
       }

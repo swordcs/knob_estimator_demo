@@ -285,17 +285,31 @@
               <ul class="nav">
                 <li class="nav-item inline">
                   <a class="nav-link">
-                    <i class="material-icons md-18" onclick="analyze()">&#xe863;</i>
+                    <i class="material-icons md-18" onclick="analyze('tpcc-1')">&#xe863;</i>
                   </a>
                 </li>
                 <li class="nav-item inline dropdown">
                   <a class="nav-link" data-toggle="dropdown">
-                    <i class="material-icons md-18">&#xe5d4;</i>
+                    <i class="material-icons md-18">&#xe5d4;</i> 
                   </a>
                   <div class="dropdown-menu dropdown-menu-scale pull-right">
-                    <a class="dropdown-item" href>Experience 1</a>
-                    <a class="dropdown-item" href>Experience 2</a>
-                    <a class="dropdown-item" href>Experience 3</a>
+                    <a class="dropdown-item" onclick="analyze('tpcc-1')">TPCC-1</a>
+                    <a class="dropdown-item" onclick="analyze('tpcc-2')">TPCC-2</a>
+                    <a class="dropdown-item" onclick="analyze('tpcc-3')">TPCC-3</a>
+                    <a class="dropdown-item" onclick="analyze('tpcc-4')">TPCC-4</a>
+                    <a class="dropdown-item" onclick="analyze('tpcc-5')">TPCC-5</a>
+                    <a class="dropdown-item" onclick="analyze('tpcc-6')">TPCC-6</a>
+                    <a class="dropdown-item" onclick="analyze('tpcc-7')">TPCC-7</a>
+                    <a class="dropdown-item" onclick="analyze('tpcc-8')">TPCC-8</a>
+                    <a class="dropdown-item" onclick="analyze('ycsb-1')">YCSB-1</a>
+                    <a class="dropdown-item" onclick="analyze('ycsb-2')">YCSB-2</a>
+                    <a class="dropdown-item" onclick="analyze('ycsb-3')">YCSB-3</a>
+                    <a class="dropdown-item" onclick="analyze('ycsb-4')">YCSB-4</a>
+                    <a class="dropdown-item" onclick="analyze('ycsb-5')">YCSB-5</a>
+                    <a class="dropdown-item" onclick="analyze('ycsb-6')">YCSB-6</a>
+                    <a class="dropdown-item" onclick="analyze('ycsb-7')">YCSB-7</a>
+                    <a class="dropdown-item" onclick="analyze('ycsb-8')">YCSB-8</a>
+
                   </div>
                 </li>
               </ul>
@@ -378,6 +392,8 @@
     <!-- eel -->
     <script type="text/javascript" src="/eel.js"></script>
     <script>
+
+      const sleep = ms => new Promise(r => setTimeout(r, ms));
       async function renderChart(chartData, chartElementId) {
         const chartElement = document.getElementById(chartElementId);
         const chart = echarts.init(chartElement);
@@ -385,76 +401,64 @@
         chart.setOption(option);
       }
 
-      async function analyze() {
-        const chart1Data = await eel.data_workload_feature()();
-        const chart2Data = await eel.data_knob_importance()();
+      async function analyze(key) {
+        const chart1Data = await eel.data_workload_feature(key)();
+        const chart2Data = await eel.data_knob_importance(key)();
         renderChart(chart1Data, "workload_feature");
+        await sleep(500)
         renderChart(chart2Data, "knob_importance");
       }
 
       async function load() {
+        await sleep(300);
         const experienceNum = document.getElementById("experienceNum");
         const knobNum = document.getElementById("knobNum");
-        experienceNum.innerText = 8;
+        experienceNum.innerText = 16;
         knobNum.innerText = 12;
 
         const configData = document.getElementById("config_preview");
         const pre = document.createElement('pre');
         pre.className = 'line-numbers';
-
         // 创建code元素  
         const code = document.createElement('code');
         code.id = 'config.yaml';
         code.className = 'language-yaml';
         code.innerHTML = `common:
-  exp_pool: 
-  query_num: 100
-  time_window: 10min
-  operator: true
-  data_path: /home/gauss/DBMind/data
+  exp_pool: /home/postgres/DBMind/exp_pool
+  data_path: /home/postgres/DBMind/data
   host: 127.0.0.1
-  host_user: gauss
+  host_user: postgres
   ssh_port: 22
 
 database:
   port: 5432
   user: dba
   name: test
-  GAUSSHOME: /opt/opengauss
+  HOME: /opt/postgres
 
 collect:
   size: 100
-  seeds: 1234
-  file_dir: /home/gauss/DBMind/data
   sample_policy: lhs # lhs,bucket
   workload:
-    name: ycsb
-    tool_path: /home/gauss/DBMind/benchbase
-    weights: 50,5,15,10,10,10
+    name: tpcc
+    HOME: /home/postgres/benchbase
   knob_candidates:
-    - shared_buffers
-    - effective_cache_size
-    - work_mem
-    - maintenance_work_mem
-    - max_connections
+    - wal_buffers
     - commit_delay
-    - geqo_effort
+    - effective_cache_size
+    - enable_nestloop
+    - plan_cache_mode
     - random_page_cost
-
+    - shared_buffers
+    - work_mem
+    - full_page_writes
+    - geqo_selection_bias
+    - max_wal_size
+    - maintenance_work_mem
     
 evaluate:
-  model_path: /home/gauss/DBMind/model
   exp_num: 10
-  new_conf:
-    work_mem: 4096kB
-    maintenance_work_mem: 8192kB
-    commit_delay: 100
-    random_page_cost: 1.1
-  old_conf:
-    work_mem: 2048kB
-    maintenance_work_mem: 8192kB
-    commit_delay: 150
-    random_page_cost: 2.1
+  model_path: /home/postgres/test.model
 `;
         pre.appendChild(code);
         while (configData.firstChild) {
@@ -463,7 +467,9 @@ evaluate:
 
         configData.appendChild(pre);
         Prism.highlightElement(code);
-        analyze();
+        await sleep(800);
+
+        analyze('tpcc-1');
       }
     </script>
     <!-- endbuild -->

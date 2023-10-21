@@ -2,16 +2,32 @@ import os
 import time
 import eel
 import json
-import threading
 
+
+import random
+count = 0
+collecting = False
+total_data = [0] + [random.randint(20, 4000) for _ in range(100)]
+experience = None
+with open("demo/backend/share/experience.json") as f:
+    experience = json.load(f)
 
 @eel.expose
 def hello():
     print('Hello from %s' % time.time())
 
-
 @eel.expose
-def data_workload_feature():
+def data_workload_feature(key):
+
+    assert key in experience.keys()
+    suid = [(k, v) for k, v in experience[key]['feature'][0].items()]
+    opts = [(k, v) for k, v in experience[key]['feature'][1].items()]
+    suid = sorted(suid, key=lambda x: x[1], reverse=True)
+    opts = sorted(opts, key=lambda x: x[1], reverse=True)
+    suid_table = {"SELECT":"S", "INSERT":"I", "UPDATE":"U", "DELETE":"D"}
+    all_feature = [suid_table[k] for k, _ in suid] + [k for k, _ in opts][:min(6, len(opts))]
+    suid_feature = [{"name": suid_table[k], "value": v} for k, v in suid]
+    opts_feature = [{"name": k, "value": v} for k, v in opts][:min(6, len(opts))]
     data = {
         "tooltip": {
             "trigger": "item",
@@ -22,10 +38,7 @@ def data_workload_feature():
             "vertical",
             "x":
             "left",
-            "data": [
-                'S', 'U', 'I', 'D', 'Join', 'Hash', 'Scan', 'Hash Join',
-                'Index Scan', 'Bitmap Scan', 'Other'
-            ]
+            "data": all_feature
         },
         "calculable":
         False,
@@ -55,24 +68,7 @@ def data_workload_feature():
                     }
                 }
             },
-            "data": [
-                {
-                    "value": 335,
-                    "name": "S"
-                },
-                {
-                    "value": 679,
-                    "name": "U"
-                },
-                {
-                    "value": 1548,
-                    "name": "I"
-                },
-                {
-                    "value": 335,
-                    "name": "D"
-                },
-            ]
+            "data": suid_feature
         }, {
             "name":
             "Source",
@@ -87,37 +83,20 @@ def data_workload_feature():
             "left",
             "max":
             1048,
-            "data": [{
-                "value": 310,
-                "name": "Join"
-            }, {
-                "value": 234,
-                "name": "Scan"
-            }, {
-                "value": 135,
-                "name": "Hash Join"
-            }, {
-                "value": 1048,
-                "name": "Index Scan"
-            }, {
-                "value": 251,
-                "name": "Bitmap Scan"
-            }, {
-                "value": 147,
-                "name": "Hash"
-            }, {
-                "value": 102,
-                "name": "Other"
-            }]
+            "data": opts_feature
         }]
     }
 
     return json.dumps(data)
 
-
 @eel.expose
-def data_knob_importance():
-
+def data_knob_importance(key):
+    knobs = []
+    importance = []
+    assert key in experience.keys()
+    for ele in experience[key]["importance"][:6]:
+        knobs = [ele[0]] + knobs
+        importance = [ele[1]] + importance
     data = {
         "tooltip": {
             "trigger": 'item'
@@ -137,15 +116,12 @@ def data_knob_importance():
         "yAxis": [{
             "type":
             'category',
-            "data": [
-                'shared_buffers', 'work_mem', 'plan_cache_mode', 'India',
-                'China', 'World(M)'
-            ]
+            "data": knobs,
         }],
         "series": [{
             "name": 'Knob Importance',
             "type": 'bar',
-            "data": [18203, 23489, 29034, 104970, 131744, 630230],
+            "data": importance,
             "itemStyle": {
                 "normal": {
                     "color": '#0cc2aa'
@@ -353,55 +329,30 @@ chart_data = {
         }
     }]
 }
-count = 0
-collecting = False
 
-import random
-total_data = [0] + [random.randint(20, 4000) for _ in range(100)]
-
-
-# def update_chart_data():
-#     global chart_data
-#     global total_data
-#     global count
-#     chart_data["series"][0]["data"] = total_data[:1 + count]
-
-
-# def run_update_thread():
-#     global count  # 初始化计数器
-#     while count < 100:  # 更新100次后结束任务
-#         if not collecting:
-#             eel.sleep(1)
-#             continue
-#         print("updating")
-#         update_chart_data()
-#         count += 1
-#         eel.sleep(5)
 
 @eel.expose
 def start_run():
     global collecting
     print("run ok stated")
     collecting = True
-    # update_thread = threading.Thread(target=run_update_thread)
-    # update_thread.daemon = True
-    # update_thread.start()
-
 
 @eel.expose
 def get_chart_data():
     global count
     global collecting
-    if count < 100 and collecting:
-        chart_data["series"][0]["data"] = total_data[:1 + count]
-        count += 1
+    if count <= 100 and collecting:
+        chart_data["series"][0]["data"] = total_data[(1 if count > 0 else 0):1 + count]
+        # count += 1
     return json.dumps(chart_data)
-
 
 @eel.expose
 def get_count():
-    return count
+    global count
+    old_count = count
+    count = min(100, count + 1)
+    return old_count
 
-
-eel.init(str(os.path.split(os.path.realpath(__file__))[0]) + '/../static_web')
-eel.start('index.html', mode='chrome')
+if __name__ == "__main__": 
+    eel.init(str(os.path.split(os.path.realpath(__file__))[0]) + '/../static_web')
+    eel.start('index.html', mode='chrome')

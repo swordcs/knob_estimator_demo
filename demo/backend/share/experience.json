@@ -1,0 +1,1530 @@
+{
+    "tpcc-1": {
+        "feature": [
+            {
+                "INSERT": 0.09707346361681936,
+                "SELECT": 0.4586198214251128,
+                "DELETE": 0.013722376091882784,
+                "UPDATE": 0.430584338866185
+            },
+            {
+                "index_scan": 0.42795104890299795,
+                "lockrows": 0.12252203967485038,
+                "modifytable": 0.2618031649179224,
+                "result": 0.03958552355823078,
+                "seq_scan": 0.07754942178062707,
+                "values_scan": 0.029498464265836615,
+                "limit": 0.011495674520555475,
+                "index_only_scan": 0.010375653631822336,
+                "aggregate": 0.010959713604474586,
+                "gather": 0.00028859433942817094,
+                "hash_join": 0.00021988140146908262,
+                "hash": 0.00021988140146908262,
+                "sort": 0.0002404952828568091,
+                "nested_loop": 0.0006665154982031567,
+                "materialize": 6.871293795908832e-06,
+                "function_scan": 6.871293795908832e-06,
+                "bitmap_heap_scan": 0.0032432506716689687,
+                "bitmap_index_scan": 0.0032432506716689687,
+                "merge_join": 0.00010994070073454131,
+                "subquery_scan": 6.871293795908832e-06,
+                "windowagg": 6.871293795908832e-06
+            }
+        ],
+        "importance": [
+            [
+                "enable_nestloop",
+                1.05
+            ],
+            [
+                "plan_cache_mode",
+                0.364
+            ],
+            [
+                "random_page_cost",
+                0.086
+            ],
+            [
+                "shared_buffers",
+                0.01
+            ],
+            [
+                "max_wal_size",
+                0.005
+            ],
+            [
+                "commit_delay",
+                0.004
+            ],
+            [
+                "work_mem",
+                -0.001
+            ],
+            [
+                "effective_cache_size",
+                -0.009
+            ],
+            [
+                "wal_buffers",
+                -0.011
+            ],
+            [
+                "full_page_writes",
+                -0.012
+            ],
+            [
+                "maintenance_work_mem",
+                -0.013
+            ],
+            [
+                "geqo_selection_bias",
+                -0.018
+            ]
+        ],
+        "knobs": [
+            "effective_cache_size",
+            "geqo_selection_bias",
+            "maintenance_work_mem",
+            "max_wal_size",
+            "random_page_cost",
+            "work_mem",
+            "enable_nestloop",
+            "full_page_writes",
+            "plan_cache_mode",
+            "commit_delay",
+            "shared_buffers",
+            "wal_buffers"
+        ],
+        "data_num": 100
+    },
+    "tpcc-2": {
+        "feature": [
+            {
+                "INSERT": 0.07599345112475986,
+                "SELECT": 0.6779883975129416,
+                "DELETE": 0.007485780801953306,
+                "UPDATE": 0.23853237056034524
+            },
+            {
+                "limit": 0.24166612480221947,
+                "index_only_scan": 0.2395365975247632,
+                "seq_scan": 0.10990636582352559,
+                "aggregate": 0.00626395300951514,
+                "gather": 0.00037388646856102476,
+                "hash_join": 0.000780284803953443,
+                "hash": 0.000780284803953443,
+                "bitmap_heap_scan": 0.011921017838177601,
+                "bitmap_index_scan": 0.011921017838177601,
+                "lockrows": 0.02454645945770206,
+                "index_scan": 0.14547434813707003,
+                "modifytable": 0.16002340854411862,
+                "result": 0.030924204001127078,
+                "values_scan": 0.012815094176040922,
+                "sort": 0.0014521967184689078,
+                "subquery_scan": 1.083728894379782e-05,
+                "projectset": 5.41864447189891e-06,
+                "nested_loop": 0.0015822441857944816,
+                "function_scan": 1.083728894379782e-05,
+                "windowagg": 5.41864447189891e-06
+            }
+        ],
+        "importance": [
+            [
+                "enable_nestloop",
+                1.238
+            ],
+            [
+                "plan_cache_mode",
+                0.289
+            ],
+            [
+                "random_page_cost",
+                0.079
+            ],
+            [
+                "full_page_writes",
+                0.028
+            ],
+            [
+                "work_mem",
+                0.014
+            ],
+            [
+                "maintenance_work_mem",
+                0.0
+            ],
+            [
+                "wal_buffers",
+                -0.002
+            ],
+            [
+                "max_wal_size",
+                -0.002
+            ],
+            [
+                "shared_buffers",
+                -0.003
+            ],
+            [
+                "effective_cache_size",
+                -0.005
+            ],
+            [
+                "commit_delay",
+                -0.009
+            ],
+            [
+                "geqo_selection_bias",
+                -0.011
+            ]
+        ],
+        "knobs": [
+            "effective_cache_size",
+            "geqo_selection_bias",
+            "maintenance_work_mem",
+            "max_wal_size",
+            "random_page_cost",
+            "work_mem",
+            "enable_nestloop",
+            "full_page_writes",
+            "plan_cache_mode",
+            "commit_delay",
+            "shared_buffers",
+            "wal_buffers"
+        ],
+        "data_num": 100
+    },
+    "tpcc-3": {
+        "feature": [
+            {
+                "INSERT": 0.08541171427458011,
+                "SELECT": 0.5454970577919801,
+                "DELETE": 0.017994232492888042,
+                "UPDATE": 0.3510969954405518
+            },
+            {
+                "modifytable": 0.21194703620592364,
+                "index_scan": 0.4047675288374473,
+                "limit": 0.08553469023529257,
+                "index_only_scan": 0.06461031717911368,
+                "lockrows": 0.09453696048711993,
+                "seq_scan": 0.04569373909163681,
+                "values_scan": 0.031947561119640956,
+                "aggregate": 0.014389197275697808,
+                "result": 0.025983229006732018,
+                "sort": 0.00030838680891828404,
+                "bitmap_heap_scan": 0.008437988005721559,
+                "bitmap_index_scan": 0.008437988005721559,
+                "nested_loop": 0.001410705615264491,
+                "memoize": 1.312284293269294e-05,
+                "subquery_scan": 1.968426439903941e-05,
+                "projectset": 1.312284293269294e-05,
+                "hash_join": 0.0006889492539663793,
+                "hash": 0.0006889492539663793,
+                "gather": 0.0005577208246394499,
+                "function_scan": 6.56142146634647e-06,
+                "windowagg": 6.56142146634647e-06
+            }
+        ],
+        "importance": [
+            [
+                "enable_nestloop",
+                1.223
+            ],
+            [
+                "random_page_cost",
+                0.217
+            ],
+            [
+                "plan_cache_mode",
+                0.178
+            ],
+            [
+                "full_page_writes",
+                0.009
+            ],
+            [
+                "maintenance_work_mem",
+                0.008
+            ],
+            [
+                "effective_cache_size",
+                0.005
+            ],
+            [
+                "work_mem",
+                0.001
+            ],
+            [
+                "shared_buffers",
+                -0.002
+            ],
+            [
+                "commit_delay",
+                -0.002
+            ],
+            [
+                "geqo_selection_bias",
+                -0.003
+            ],
+            [
+                "max_wal_size",
+                -0.009
+            ],
+            [
+                "wal_buffers",
+                -0.013
+            ]
+        ],
+        "knobs": [
+            "effective_cache_size",
+            "geqo_selection_bias",
+            "maintenance_work_mem",
+            "max_wal_size",
+            "random_page_cost",
+            "work_mem",
+            "enable_nestloop",
+            "full_page_writes",
+            "plan_cache_mode",
+            "commit_delay",
+            "shared_buffers",
+            "wal_buffers"
+        ],
+        "data_num": 200
+    },
+    "tpcc-4": {
+        "feature": [
+            {
+                "INSERT": 0.10087051532357735,
+                "SELECT": 0.45726235469021476,
+                "DELETE": 0.014508588726289205,
+                "UPDATE": 0.4273585412599187
+            },
+            {
+                "modifytable": 0.25665738376047537,
+                "index_scan": 0.4493910499095237,
+                "lockrows": 0.13233274726967056,
+                "seq_scan": 0.05242489187767097,
+                "aggregate": 0.011595077065232736,
+                "result": 0.03450289395669973,
+                "limit": 0.01224958611927465,
+                "index_only_scan": 0.01034380975603496,
+                "values_scan": 0.03791019109097676,
+                "nested_loop": 0.0010330976245171391,
+                "sort": 6.416755431783473e-06,
+                "subquery_scan": 6.416755431783473e-06,
+                "projectset": 6.416755431783473e-06,
+                "hash_join": 1.2833510863566946e-05,
+                "hash": 1.2833510863566946e-05,
+                "bitmap_heap_scan": 0.0007571771409504498,
+                "bitmap_index_scan": 0.0007571771409504498
+            }
+        ],
+        "importance": [
+            [
+                "enable_nestloop",
+                1.602
+            ],
+            [
+                "plan_cache_mode",
+                0.091
+            ],
+            [
+                "effective_cache_size",
+                0.004
+            ],
+            [
+                "commit_delay",
+                0.003
+            ],
+            [
+                "max_wal_size",
+                0.003
+            ],
+            [
+                "random_page_cost",
+                0.003
+            ],
+            [
+                "wal_buffers",
+                0.003
+            ],
+            [
+                "full_page_writes",
+                0.001
+            ],
+            [
+                "work_mem",
+                0.001
+            ],
+            [
+                "shared_buffers",
+                0.0
+            ],
+            [
+                "maintenance_work_mem",
+                -0.002
+            ],
+            [
+                "geqo_selection_bias",
+                -0.006
+            ]
+        ],
+        "knobs": [
+            "effective_cache_size",
+            "geqo_selection_bias",
+            "maintenance_work_mem",
+            "max_wal_size",
+            "random_page_cost",
+            "work_mem",
+            "enable_nestloop",
+            "full_page_writes",
+            "plan_cache_mode",
+            "commit_delay",
+            "shared_buffers",
+            "wal_buffers"
+        ],
+        "data_num": 100
+    },
+    "tpcc-5": {
+        "feature": [
+            {
+                "INSERT": 0.16214584790502928,
+                "SELECT": 0.5582500550929874,
+                "DELETE": 0.016384175377746266,
+                "UPDATE": 0.2632199216242371
+            },
+            {
+                "limit": 0.14110388228838897,
+                "index_only_scan": 0.1364175895546622,
+                "seq_scan": 0.06421956709181102,
+                "modifytable": 0.20987536812873028,
+                "index_scan": 0.2403390703559791,
+                "lockrows": 0.048800152290516555,
+                "result": 0.020458439246161943,
+                "aggregate": 0.02279318723895054,
+                "nested_loop": 0.012603160028218537,
+                "bitmap_heap_scan": 0.013067870060356314,
+                "bitmap_index_scan": 0.013067870060356314,
+                "values_scan": 0.07485750758653124,
+                "sort": 0.000867831987727176,
+                "subquery_scan": 1.6796748149558245e-05,
+                "windowagg": 1.1197832099705497e-05,
+                "hash_join": 0.0002631490543430792,
+                "hash": 0.0002631490543430792,
+                "gather": 0.0005374959407858638,
+                "merge_join": 0.00040872087163925063,
+                "projectset": 5.598916049852749e-06,
+                "function_scan": 1.1197832099705497e-05,
+                "materialize": 1.1197832099705497e-05
+            }
+        ],
+        "importance": [
+            [
+                "enable_nestloop",
+                1.161
+            ],
+            [
+                "wal_buffers",
+                0.038
+            ],
+            [
+                "random_page_cost",
+                0.027
+            ],
+            [
+                "plan_cache_mode",
+                0.011
+            ],
+            [
+                "maintenance_work_mem",
+                0.01
+            ],
+            [
+                "work_mem",
+                0.005
+            ],
+            [
+                "shared_buffers",
+                0.004
+            ],
+            [
+                "commit_delay",
+                0.003
+            ],
+            [
+                "full_page_writes",
+                0.003
+            ],
+            [
+                "effective_cache_size",
+                -0.001
+            ],
+            [
+                "geqo_selection_bias",
+                -0.002
+            ],
+            [
+                "max_wal_size",
+                -0.005
+            ]
+        ],
+        "knobs": [
+            "effective_cache_size",
+            "geqo_selection_bias",
+            "maintenance_work_mem",
+            "max_wal_size",
+            "random_page_cost",
+            "work_mem",
+            "enable_nestloop",
+            "full_page_writes",
+            "plan_cache_mode",
+            "commit_delay",
+            "shared_buffers",
+            "wal_buffers"
+        ],
+        "data_num": 100
+    },
+    "tpcc-6": {
+        "feature": [
+            {
+                "INSERT": 0.10630102929681982,
+                "SELECT": 0.5344621382629086,
+                "DELETE": 0.01621636892710168,
+                "UPDATE": 0.3430204635131699
+            },
+            {
+                "lockrows": 0.09279011593209148,
+                "index_scan": 0.40310210404682995,
+                "modifytable": 0.22131220397953094,
+                "values_scan": 0.0453443043439615,
+                "limit": 0.08467613932167664,
+                "index_only_scan": 0.06312140489886099,
+                "seq_scan": 0.04464591825073331,
+                "aggregate": 0.013224893019948447,
+                "gather": 0.00010793239622617551,
+                "hash_join": 0.00018411997003288762,
+                "hash": 0.00018411997003288762,
+                "result": 0.026576765329574745,
+                "sort": 0.00037458890454966794,
+                "bitmap_heap_scan": 0.0011174177491651111,
+                "bitmap_index_scan": 0.0011174177491651111,
+                "subquery_scan": 6.348964483892677e-06,
+                "windowagg": 6.348964483892677e-06,
+                "nested_loop": 0.0020951582796845834,
+                "function_scan": 1.2697928967785353e-05
+            }
+        ],
+        "importance": [
+            [
+                "enable_nestloop",
+                1.466
+            ],
+            [
+                "plan_cache_mode",
+                0.047
+            ],
+            [
+                "geqo_selection_bias",
+                0.017
+            ],
+            [
+                "effective_cache_size",
+                0.015
+            ],
+            [
+                "work_mem",
+                0.014
+            ],
+            [
+                "random_page_cost",
+                0.011
+            ],
+            [
+                "wal_buffers",
+                0.006
+            ],
+            [
+                "full_page_writes",
+                0.006
+            ],
+            [
+                "maintenance_work_mem",
+                0.003
+            ],
+            [
+                "shared_buffers",
+                0.002
+            ],
+            [
+                "commit_delay",
+                0.001
+            ],
+            [
+                "max_wal_size",
+                -0.002
+            ]
+        ],
+        "knobs": [
+            "effective_cache_size",
+            "geqo_selection_bias",
+            "maintenance_work_mem",
+            "max_wal_size",
+            "random_page_cost",
+            "work_mem",
+            "enable_nestloop",
+            "full_page_writes",
+            "plan_cache_mode",
+            "commit_delay",
+            "shared_buffers",
+            "wal_buffers"
+        ],
+        "data_num": 100
+    },
+    "tpcc-7": {
+        "feature": [
+            {
+                "INSERT": 0.2064676374616471,
+                "SELECT": 0.40312667413432035,
+                "DELETE": 0.012282666926411143,
+                "UPDATE": 0.3781230214776214
+            },
+            {
+                "modifytable": 0.3016777065198783,
+                "values_scan": 0.10706243333289438,
+                "result": 0.03298128711958597,
+                "index_scan": 0.3602459933892569,
+                "lockrows": 0.10223606410577189,
+                "seq_scan": 0.0664959110841882,
+                "aggregate": 0.008954791471878004,
+                "limit": 0.008954791471878004,
+                "index_only_scan": 0.008125156379630483,
+                "gather": 0.00032922027470139723,
+                "hash_join": 0.0005728432779804312,
+                "hash": 0.0005728432779804312,
+                "sort": 0.0002633762197611178,
+                "subquery_scan": 3.950643296416766e-05,
+                "windowagg": 2.6337621976111777e-05,
+                "bitmap_heap_scan": 0.0004279863571118164,
+                "bitmap_index_scan": 0.0004279863571118164,
+                "nested_loop": 0.0005794276834744591,
+                "function_scan": 1.3168810988055889e-05,
+                "projectset": 1.3168810988055889e-05
+            }
+        ],
+        "importance": [
+            [
+                "enable_nestloop",
+                1.504
+            ],
+            [
+                "plan_cache_mode",
+                0.093
+            ],
+            [
+                "full_page_writes",
+                0.015
+            ],
+            [
+                "random_page_cost",
+                0.012
+            ],
+            [
+                "commit_delay",
+                0.008
+            ],
+            [
+                "work_mem",
+                0.006
+            ],
+            [
+                "max_wal_size",
+                0.004
+            ],
+            [
+                "maintenance_work_mem",
+                0.003
+            ],
+            [
+                "shared_buffers",
+                0.002
+            ],
+            [
+                "wal_buffers",
+                0.001
+            ],
+            [
+                "effective_cache_size",
+                0.001
+            ],
+            [
+                "geqo_selection_bias",
+                -0.007
+            ]
+        ],
+        "knobs": [
+            "effective_cache_size",
+            "geqo_selection_bias",
+            "maintenance_work_mem",
+            "max_wal_size",
+            "random_page_cost",
+            "work_mem",
+            "enable_nestloop",
+            "full_page_writes",
+            "plan_cache_mode",
+            "commit_delay",
+            "shared_buffers",
+            "wal_buffers"
+        ],
+        "data_num": 100
+    },
+    "tpcc-8": {
+        "feature": [
+            {
+                "INSERT": 0.15045430517738348,
+                "SELECT": 0.6221637094441619,
+                "DELETE": 0.007979015190050167,
+                "UPDATE": 0.2194029701884045
+            },
+            {
+                "modifytable": 0.19389806501724807,
+                "values_scan": 0.05886048477371896,
+                "result": 0.027579786626459234,
+                "limit": 0.22026134831974048,
+                "index_only_scan": 0.2184451602586069,
+                "index_scan": 0.14673428825988624,
+                "seq_scan": 0.09925067964270212,
+                "aggregate": 0.006613665958467549,
+                "lockrows": 0.022736618463436366,
+                "nested_loop": 0.001964681424622484,
+                "bitmap_heap_scan": 0.0014563772188335275,
+                "bitmap_index_scan": 0.0014563772188335275,
+                "sort": 0.00022845132844447492,
+                "subquery_scan": 1.7133849633335617e-05,
+                "windowagg": 1.7133849633335617e-05,
+                "hash_join": 0.00019989491238891555,
+                "hash": 0.00019989491238891555,
+                "gather": 7.424668174445434e-05,
+                "function_scan": 5.711283211111873e-06
+            }
+        ],
+        "importance": [
+            [
+                "enable_nestloop",
+                1.388
+            ],
+            [
+                "plan_cache_mode",
+                0.024
+            ],
+            [
+                "maintenance_work_mem",
+                0.012
+            ],
+            [
+                "geqo_selection_bias",
+                0.005
+            ],
+            [
+                "random_page_cost",
+                0.004
+            ],
+            [
+                "shared_buffers",
+                0.003
+            ],
+            [
+                "wal_buffers",
+                0.003
+            ],
+            [
+                "work_mem",
+                0.002
+            ],
+            [
+                "full_page_writes",
+                0.001
+            ],
+            [
+                "commit_delay",
+                0.001
+            ],
+            [
+                "max_wal_size",
+                -0.003
+            ],
+            [
+                "effective_cache_size",
+                -0.004
+            ]
+        ],
+        "knobs": [
+            "effective_cache_size",
+            "geqo_selection_bias",
+            "maintenance_work_mem",
+            "max_wal_size",
+            "random_page_cost",
+            "work_mem",
+            "enable_nestloop",
+            "full_page_writes",
+            "plan_cache_mode",
+            "commit_delay",
+            "shared_buffers",
+            "wal_buffers"
+        ],
+        "data_num": 100
+    },
+    "ycsb-1": {
+        "feature": [
+            {
+                "INSERT": 0.045432499579328704,
+                "SELECT": 0.6263449108671767,
+                "DELETE": 0.08202595294420414,
+                "UPDATE": 0.2461966366092904
+            },
+            {
+                "gather": 0.0009729263136334043,
+                "seq_scan": 0.001002187255396815,
+                "index_scan": 0.5989349017198119,
+                "modifytable": 0.21525080284708964,
+                "lockrows": 0.061338249171549585,
+                "result": 0.031075120152742115,
+                "values_scan": 0.002940724647222771,
+                "bitmap_heap_scan": 0.044220598239954355,
+                "bitmap_index_scan": 0.044220598239954355,
+                "hash_join": 2.1945706322557992e-05,
+                "hash": 2.1945706322557992e-05
+            }
+        ],
+        "importance": [
+            [
+                "random_page_cost",
+                0.956
+            ],
+            [
+                "plan_cache_mode",
+                0.507
+            ],
+            [
+                "work_mem",
+                0.037
+            ],
+            [
+                "full_page_writes",
+                0.015
+            ],
+            [
+                "shared_buffers",
+                0.013
+            ],
+            [
+                "effective_cache_size",
+                0.01
+            ],
+            [
+                "enable_nestloop",
+                0.01
+            ],
+            [
+                "wal_buffers",
+                -0.0
+            ],
+            [
+                "geqo_selection_bias",
+                -0.0
+            ],
+            [
+                "max_wal_size",
+                -0.001
+            ],
+            [
+                "commit_delay",
+                -0.002
+            ],
+            [
+                "maintenance_work_mem",
+                -0.007
+            ]
+        ],
+        "knobs": [
+            "effective_cache_size",
+            "geqo_selection_bias",
+            "maintenance_work_mem",
+            "max_wal_size",
+            "random_page_cost",
+            "work_mem",
+            "enable_nestloop",
+            "full_page_writes",
+            "plan_cache_mode",
+            "commit_delay",
+            "shared_buffers",
+            "wal_buffers"
+        ],
+        "data_num": 100
+    },
+    "ycsb-2": {
+        "feature": [
+            {
+                "INSERT": 0.03715620930054394,
+                "SELECT": 0.39998467785183484,
+                "DELETE": 0.06583416328302562,
+                "UPDATE": 0.49702494956459564
+            },
+            {
+                "gather": 0.0011171986525907159,
+                "seq_scan": 0.0011341259049026965,
+                "modifytable": 0.2876617257897974,
+                "result": 0.02216341569381986,
+                "index_scan": 0.4787591195571831,
+                "lockrows": 0.11045596375311038,
+                "bitmap_heap_scan": 0.047898481625467615,
+                "bitmap_index_scan": 0.047898481625467615,
+                "sort": 5.642417437326848e-06,
+                "subquery_scan": 5.642417437326848e-06,
+                "projectset": 5.642417437326848e-06,
+                "nested_loop": 1.6927252311980546e-05,
+                "hash_join": 5.642417437326848e-06,
+                "hash": 5.642417437326848e-06,
+                "values_scan": 0.002866348058162039
+            }
+        ],
+        "importance": [
+            [
+                "random_page_cost",
+                0.841
+            ],
+            [
+                "plan_cache_mode",
+                0.643
+            ],
+            [
+                "full_page_writes",
+                0.043
+            ],
+            [
+                "shared_buffers",
+                0.041
+            ],
+            [
+                "enable_nestloop",
+                0.035
+            ],
+            [
+                "maintenance_work_mem",
+                0.002
+            ],
+            [
+                "wal_buffers",
+                0.0
+            ],
+            [
+                "max_wal_size",
+                -0.0
+            ],
+            [
+                "commit_delay",
+                -0.001
+            ],
+            [
+                "geqo_selection_bias",
+                -0.007
+            ],
+            [
+                "effective_cache_size",
+                -0.015
+            ],
+            [
+                "work_mem",
+                -0.024
+            ]
+        ],
+        "knobs": [
+            "effective_cache_size",
+            "geqo_selection_bias",
+            "maintenance_work_mem",
+            "max_wal_size",
+            "random_page_cost",
+            "work_mem",
+            "enable_nestloop",
+            "full_page_writes",
+            "plan_cache_mode",
+            "commit_delay",
+            "shared_buffers",
+            "wal_buffers"
+        ],
+        "data_num": 100
+    },
+    "ycsb-3": {
+        "feature": [
+            {
+                "INSERT": 0.4864345310053707,
+                "SELECT": 0.29998612735091856,
+                "DELETE": 0.0429160308369171,
+                "UPDATE": 0.17066331080679364
+            },
+            {
+                "modifytable": 0.3864391681227944,
+                "result": 0.24564018227292972,
+                "index_scan": 0.2429220771804799,
+                "lockrows": 0.02454289009947351,
+                "gather": 0.00395724123753726,
+                "seq_scan": 0.00443119653727116,
+                "sort": 0.00010278548668927948,
+                "nested_loop": 0.00010278548668927948,
+                "materialize": 2.2841219264284328e-05,
+                "values_scan": 0.04231906899190279,
+                "bitmap_heap_scan": 0.02439442217425566,
+                "bitmap_index_scan": 0.02439442217425566,
+                "function_scan": 2.855152408035541e-05,
+                "hash_join": 0.00027980493598748303,
+                "hash": 0.00027980493598748303,
+                "subquery_scan": 5.710304816071082e-05,
+                "windowagg": 1.7130914448213244e-05,
+                "projectset": 2.855152408035541e-05,
+                "append": 5.710304816071082e-06,
+                "limit": 5.710304816071082e-06,
+                "index_only_scan": 5.710304816071082e-06,
+                "aggregate": 1.7130914448213244e-05,
+                "merge_join": 5.710304816071082e-06
+            }
+        ],
+        "importance": [
+            [
+                "random_page_cost",
+                1.138
+            ],
+            [
+                "plan_cache_mode",
+                0.729
+            ],
+            [
+                "shared_buffers",
+                0.014
+            ],
+            [
+                "full_page_writes",
+                0.005
+            ],
+            [
+                "work_mem",
+                0.002
+            ],
+            [
+                "geqo_selection_bias",
+                0.002
+            ],
+            [
+                "max_wal_size",
+                0.0
+            ],
+            [
+                "commit_delay",
+                -0.001
+            ],
+            [
+                "wal_buffers",
+                -0.005
+            ],
+            [
+                "effective_cache_size",
+                -0.005
+            ],
+            [
+                "enable_nestloop",
+                -0.01
+            ],
+            [
+                "maintenance_work_mem",
+                -0.011
+            ]
+        ],
+        "knobs": [
+            "effective_cache_size",
+            "geqo_selection_bias",
+            "maintenance_work_mem",
+            "max_wal_size",
+            "random_page_cost",
+            "work_mem",
+            "enable_nestloop",
+            "full_page_writes",
+            "plan_cache_mode",
+            "commit_delay",
+            "shared_buffers",
+            "wal_buffers"
+        ],
+        "data_num": 400
+    },
+    "ycsb-4": {
+        "feature": [
+            {
+                "INSERT": 0.12135210724274278,
+                "SELECT": 0.37847429838943003,
+                "DELETE": 0.06383450670267142,
+                "UPDATE": 0.4363390876651558
+            },
+            {
+                "sort": 6.90404011874949e-05,
+                "subquery_scan": 6.276400107954082e-05,
+                "result": 0.04060830869846291,
+                "projectset": 3.7658400647724494e-05,
+                "hash_join": 0.00030754360528975004,
+                "seq_scan": 0.005284728890897337,
+                "hash": 0.00030754360528975004,
+                "modifytable": 0.30932610292040896,
+                "values_scan": 0.04481349677079215,
+                "index_scan": 0.4381492151361665,
+                "gather": 0.004726129281289424,
+                "lockrows": 0.10145173134496978,
+                "bitmap_heap_scan": 0.02727723486916844,
+                "bitmap_index_scan": 0.02727723486916844,
+                "nested_loop": 0.0001694628029147602,
+                "function_scan": 3.138200053977041e-05,
+                "materialize": 2.5105600431816328e-05,
+                "append": 1.2552800215908164e-05,
+                "aggregate": 3.7658400647724494e-05,
+                "limit": 1.2552800215908164e-05,
+                "index_only_scan": 1.2552800215908164e-05
+            }
+        ],
+        "importance": [
+            [
+                "random_page_cost",
+                1.142
+            ],
+            [
+                "plan_cache_mode",
+                0.597
+            ],
+            [
+                "enable_nestloop",
+                0.014
+            ],
+            [
+                "shared_buffers",
+                0.006
+            ],
+            [
+                "wal_buffers",
+                0.005
+            ],
+            [
+                "full_page_writes",
+                0.003
+            ],
+            [
+                "maintenance_work_mem",
+                0.003
+            ],
+            [
+                "geqo_selection_bias",
+                0.003
+            ],
+            [
+                "commit_delay",
+                -0.0
+            ],
+            [
+                "work_mem",
+                -0.003
+            ],
+            [
+                "max_wal_size",
+                -0.003
+            ],
+            [
+                "effective_cache_size",
+                -0.005
+            ]
+        ],
+        "knobs": [
+            "effective_cache_size",
+            "geqo_selection_bias",
+            "maintenance_work_mem",
+            "max_wal_size",
+            "random_page_cost",
+            "work_mem",
+            "enable_nestloop",
+            "full_page_writes",
+            "plan_cache_mode",
+            "commit_delay",
+            "shared_buffers",
+            "wal_buffers"
+        ],
+        "data_num": 400
+    },
+    "ycsb-5": {
+        "feature": [
+            {
+                "INSERT": 0.048209313490158424,
+                "SELECT": 0.33500720115218435,
+                "DELETE": 0.18673067690830533,
+                "UPDATE": 0.4300528084493519
+            },
+            {
+                "modifytable": 0.32176492446471816,
+                "values_scan": 0.012454672424176416,
+                "index_scan": 0.5024858091052369,
+                "lockrows": 0.12252219930038569,
+                "result": 0.020322130107761106,
+                "gather": 0.0003011160514075574,
+                "seq_scan": 0.0004036236433760875,
+                "subquery_scan": 2.5626897992132543e-05,
+                "append": 6.406724498033136e-06,
+                "sort": 1.9220173494099406e-05,
+                "nested_loop": 4.484707148623195e-05,
+                "hash_join": 5.766052048229822e-05,
+                "hash": 5.766052048229822e-05,
+                "function_scan": 6.406724498033136e-06,
+                "bitmap_heap_scan": 0.009751034686006433,
+                "bitmap_index_scan": 0.009751034686006433,
+                "limit": 6.406724498033136e-06,
+                "index_only_scan": 6.406724498033136e-06,
+                "projectset": 1.2813448996066271e-05
+            }
+        ],
+        "importance": [
+            [
+                "plan_cache_mode",
+                0.727
+            ],
+            [
+                "random_page_cost",
+                0.144
+            ],
+            [
+                "enable_nestloop",
+                0.021
+            ],
+            [
+                "shared_buffers",
+                0.018
+            ],
+            [
+                "max_wal_size",
+                0.015
+            ],
+            [
+                "geqo_selection_bias",
+                0.007
+            ],
+            [
+                "wal_buffers",
+                -0.003
+            ],
+            [
+                "work_mem",
+                -0.004
+            ],
+            [
+                "full_page_writes",
+                -0.004
+            ],
+            [
+                "commit_delay",
+                -0.032
+            ],
+            [
+                "maintenance_work_mem",
+                -0.033
+            ],
+            [
+                "effective_cache_size",
+                -0.091
+            ]
+        ],
+        "knobs": [
+            "effective_cache_size",
+            "geqo_selection_bias",
+            "maintenance_work_mem",
+            "max_wal_size",
+            "random_page_cost",
+            "work_mem",
+            "enable_nestloop",
+            "full_page_writes",
+            "plan_cache_mode",
+            "commit_delay",
+            "shared_buffers",
+            "wal_buffers"
+        ],
+        "data_num": 100
+    },
+    "ycsb-6": {
+        "feature": [
+            {
+                "INSERT": 0.11991678064379419,
+                "SELECT": 0.4794455895667585,
+                "DELETE": 0.0809847623817688,
+                "UPDATE": 0.3196528674076785
+            },
+            {
+                "index_scan": 0.49445003106445395,
+                "modifytable": 0.29506747711798725,
+                "result": 0.05220749774222268,
+                "gather": 0.00109526219039628,
+                "seq_scan": 0.0011977428631818967,
+                "lockrows": 0.05248931959238312,
+                "values_scan": 0.028963600146034957,
+                "bitmap_heap_scan": 0.037149243884786104,
+                "bitmap_index_scan": 0.037149243884786104,
+                "sort": 1.2810084098202106e-05,
+                "nested_loop": 3.202521024550526e-05,
+                "function_scan": 2.562016819640421e-05,
+                "materialize": 6.405042049101053e-06,
+                "hash_join": 6.405042049101053e-05,
+                "hash": 6.405042049101053e-05,
+                "limit": 6.405042049101053e-06,
+                "index_only_scan": 6.405042049101053e-06,
+                "subquery_scan": 6.405042049101053e-06,
+                "projectset": 6.405042049101053e-06
+            }
+        ],
+        "importance": [
+            [
+                "plan_cache_mode",
+                0.648
+            ],
+            [
+                "enable_nestloop",
+                0.086
+            ],
+            [
+                "work_mem",
+                0.072
+            ],
+            [
+                "effective_cache_size",
+                0.031
+            ],
+            [
+                "maintenance_work_mem",
+                0.017
+            ],
+            [
+                "full_page_writes",
+                0.011
+            ],
+            [
+                "geqo_selection_bias",
+                0.002
+            ],
+            [
+                "wal_buffers",
+                -0.003
+            ],
+            [
+                "random_page_cost",
+                -0.006
+            ],
+            [
+                "shared_buffers",
+                -0.011
+            ],
+            [
+                "max_wal_size",
+                -0.036
+            ],
+            [
+                "commit_delay",
+                -0.04
+            ]
+        ],
+        "knobs": [
+            "effective_cache_size",
+            "geqo_selection_bias",
+            "maintenance_work_mem",
+            "max_wal_size",
+            "random_page_cost",
+            "work_mem",
+            "enable_nestloop",
+            "full_page_writes",
+            "plan_cache_mode",
+            "commit_delay",
+            "shared_buffers",
+            "wal_buffers"
+        ],
+        "data_num": 100
+    },
+    "ycsb-7": {
+        "feature": [
+            {
+                "INSERT": 0.11973961586508432,
+                "SELECT": 0.5735770612117427,
+                "DELETE": 0.07620237351655215,
+                "UPDATE": 0.23048094940662087
+            },
+            {
+                "modifytable": 0.2545469944313875,
+                "values_scan": 0.06088773140796262,
+                "index_scan": 0.5606936416184971,
+                "gather": 0.0009386887999604762,
+                "seq_scan": 0.001016324715746681,
+                "result": 0.0274831141883165,
+                "lockrows": 0.05559437351344866,
+                "bitmap_heap_scan": 0.019317227409712957,
+                "bitmap_index_scan": 0.019317227409712957,
+                "function_scan": 1.4115621052037237e-05,
+                "sort": 3.5289052630093094e-05,
+                "subquery_scan": 1.4115621052037237e-05,
+                "windowagg": 1.4115621052037237e-05,
+                "hash_join": 5.646248420814895e-05,
+                "hash": 5.646248420814895e-05,
+                "nested_loop": 7.0578105260186185e-06,
+                "merge_join": 7.0578105260186185e-06
+            }
+        ],
+        "importance": [
+            [
+                "plan_cache_mode",
+                0.472
+            ],
+            [
+                "random_page_cost",
+                0.046
+            ],
+            [
+                "shared_buffers",
+                0.044
+            ],
+            [
+                "work_mem",
+                0.015
+            ],
+            [
+                "maintenance_work_mem",
+                0.008
+            ],
+            [
+                "commit_delay",
+                0.005
+            ],
+            [
+                "full_page_writes",
+                0.003
+            ],
+            [
+                "wal_buffers",
+                -0.001
+            ],
+            [
+                "enable_nestloop",
+                -0.003
+            ],
+            [
+                "effective_cache_size",
+                -0.004
+            ],
+            [
+                "max_wal_size",
+                -0.005
+            ],
+            [
+                "geqo_selection_bias",
+                -0.013
+            ]
+        ],
+        "knobs": [
+            "effective_cache_size",
+            "geqo_selection_bias",
+            "maintenance_work_mem",
+            "max_wal_size",
+            "random_page_cost",
+            "work_mem",
+            "enable_nestloop",
+            "full_page_writes",
+            "plan_cache_mode",
+            "commit_delay",
+            "shared_buffers",
+            "wal_buffers"
+        ],
+        "data_num": 100
+    },
+    "ycsb-8": {
+        "feature": [
+            {
+                "INSERT": 0.07943371029948731,
+                "SELECT": 0.3806953484680108,
+                "DELETE": 0.0632966950869886,
+                "UPDATE": 0.4765742461455133
+            },
+            {
+                "modifytable": 0.31098246297005583,
+                "index_scan": 0.4969139096965397,
+                "result": 0.02076439599907072,
+                "lockrows": 0.10635866459880826,
+                "bitmap_heap_scan": 0.015251502232156872,
+                "bitmap_index_scan": 0.015251502232156872,
+                "values_scan": 0.033592234228916946,
+                "gather": 0.0004206877931471842,
+                "seq_scan": 0.00043952456000452084,
+                "sort": 6.278922285778869e-06,
+                "nested_loop": 1.2557844571557738e-05,
+                "materialize": 6.278922285778869e-06
+            }
+        ],
+        "importance": [
+            [
+                "plan_cache_mode",
+                0.933
+            ],
+            [
+                "shared_buffers",
+                0.399
+            ],
+            [
+                "maintenance_work_mem",
+                0.014
+            ],
+            [
+                "geqo_selection_bias",
+                0.007
+            ],
+            [
+                "work_mem",
+                -0.004
+            ],
+            [
+                "wal_buffers",
+                -0.009
+            ],
+            [
+                "effective_cache_size",
+                -0.012
+            ],
+            [
+                "commit_delay",
+                -0.012
+            ],
+            [
+                "full_page_writes",
+                -0.016
+            ],
+            [
+                "max_wal_size",
+                -0.025
+            ],
+            [
+                "random_page_cost",
+                -0.026
+            ],
+            [
+                "enable_nestloop",
+                -0.043
+            ]
+        ],
+        "knobs": [
+            "effective_cache_size",
+            "geqo_selection_bias",
+            "maintenance_work_mem",
+            "max_wal_size",
+            "random_page_cost",
+            "work_mem",
+            "enable_nestloop",
+            "full_page_writes",
+            "plan_cache_mode",
+            "commit_delay",
+            "shared_buffers",
+            "wal_buffers"
+        ],
+        "data_num": 100
+    }
+}
