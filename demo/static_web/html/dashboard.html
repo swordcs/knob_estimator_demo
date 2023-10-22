@@ -437,6 +437,7 @@ database:
   HOME: /opt/postgres
 
 collect:
+  rank: 6
   size: 100
   sample_policy: lhs # lhs,bucket
   workload:
@@ -457,6 +458,7 @@ collect:
     - maintenance_work_mem
     
 evaluate:
+  sample: 10
   exp_num: 10
   model_path: /home/postgres/test.model
 `;
