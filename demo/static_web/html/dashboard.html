@@ -210,7 +210,7 @@
                 </div>
                 <div class="box">
                   <div class="box-divider m-0"></div>
-                  <div class="box-body" style="height: 370px; overflow: auto;">
+                  <div class="box-body" style="height: 310px; overflow: auto;">
                     <!-- Not upload yet -->
                     <div id="config_preview">
                       <!-- <pre class="line-numbers"><code id="config.yaml" class="language-yaml"><br></code></pre> -->
@@ -251,12 +251,12 @@
                           <input type="file" class="form-control">
                         </div>
                       </div>
-                      <div class="form-group row">
+                      <!-- <div class="form-group row">
                         <label for="inputPassword3" class="col-sm-3 form-control-label">Knob Info File</label>
                         <div class="col-sm-9">
                           <input type="file" class="form-control" lang="en" directory="en">
                         </div>
-                      </div>
+                      </div> -->
                       <div class="form-group row m-t-md">
                         <div class="col-offset-3 col-sm-3">
                           <a class="btn white grey-300 pull-right" onclick="load()">Load</a>
@@ -290,7 +290,7 @@
                 </li>
                 <li class="nav-item inline dropdown">
                   <a class="nav-link" data-toggle="dropdown">
-                    <i class="material-icons md-18">&#xe5d4;</i> 
+                    <i class="material-icons md-18">&#xe5d4;</i>
                   </a>
                   <div class="dropdown-menu dropdown-menu-scale pull-right">
                     <a class="dropdown-item" onclick="analyze('tpcc-1')">TPCC-1</a>
@@ -333,8 +333,8 @@
                 <div class="col-sm-6">
                   <div class="box">
                     <div class="box-header">
-                      <h3>Knob Importance</h3>
-                      <small class="block text-muted">Sorted by Knob Importance</small>
+                      <h3>Knob Score</h3>
+                      <small class="block text-muted">Sorted by Knob Score</small>
                     </div>
                     <div class="box-body">
                       <div id="knob_importance" ui-jp="chart" ui-options="" style="height:300px">
@@ -398,10 +398,10 @@
       fileInput.addEventListener('change', () => {
         // 获取文件上传框的labels
         const labels = fileInput.labels;
-        
+
         // 遍历labels,修改文字为英文
-        for(let label of labels) {
-          label.textContent = 'Select file'; 
+        for (let label of labels) {
+          label.textContent = 'Select file';
         }
       });
 
@@ -436,7 +436,6 @@
         code.id = 'config.yaml';
         code.className = 'language-yaml';
         code.innerHTML = `common:
-  exp_pool: /home/postgres/DBMind/exp_pool
   data_path: /home/postgres/DBMind/data
   host: 127.0.0.1
   host_user: postgres
@@ -445,15 +444,15 @@
 database:
   port: 5432
   user: dba
-  name: test
+  name: ycsb
   HOME: /opt/postgres
 
 collect:
   rank: 6
   size: 100
-  sample_policy: lhs # lhs,bucket
+  sample_policy: lhs 
   workload:
-    name: tpcc
+    name: ycsb
     HOME: /home/postgres/benchbase
   knob_candidates:
     - wal_buffers
@@ -470,9 +469,7 @@ collect:
     - maintenance_work_mem
     
 evaluate:
-  sample: 10
-  exp_num: 10
-  model_path: /home/postgres/test.model
+  model_path: /home/postgres/ycsb_model.pkl
 `;
         pre.appendChild(code);
         while (configData.firstChild) {

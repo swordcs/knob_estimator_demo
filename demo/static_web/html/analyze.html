@@ -222,13 +222,13 @@
                             <i></i>
                           </label>
                         </div>
-                        <label class="col-sm-3 form-control-label">train</label>
+                        <!-- <label class="col-sm-3 form-control-label">train</label>
                         <div class="col-sm-3">
                           <label class="ui-switch ui-switch-md info m-t-xs">
                             <input type="checkbox" checked>
                             <i></i>
                           </label>
-                        </div>
+                        </div> -->
                         <label class="col-sm-3 form-control-label">save</label>
                         <div class="col-sm-3">
                           <label class="ui-switch ui-switch-md info m-t-xs">
@@ -237,18 +237,19 @@
                           </label>
                         </div>
                         <label class="col-sm-3 form-control-label">use_exp</label>
-                        <div class="col-sm-9">
+                        <div class="col-sm-3">
                           <label class="ui-switch ui-switch-md info m-t-xs">
                             <input type="checkbox" checked>
                             <i></i>
                           </label>
                         </div>
+
                         <!-- <div class="offset-9 col-sm-1" style="padding-bottom: 30px;">
                           <span class="w-40 rounded  success">
                             <i class="material-icons">&#xe5ca;</i>
                           </span>
                         </div> -->
-                        <div class="offset-10 col-sm-1">
+                        <div class="offset-10 col-sm-1" style="padding-top: 30px;">
                           <a class="btn success pull-right" onclick="start_run()">Run</a>
                         </div>
 
@@ -298,8 +299,8 @@
                 <div class="col-sm-6">
                   <div class="box">
                     <div class="box-header">
-                      <h3>Knob Importance</h3>
-                      <small class="block text-muted">Sorted by Knob Importance</small>
+                      <h3>Knob Score</h3>
+                      <small class="block text-muted">Sorted by Knob Score</small>
                     </div>
                     <div class="box-body">
                       <div id="knob_importance" ui-jp="chart" ui-options="" style="height:300px">
