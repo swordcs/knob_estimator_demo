@@ -184,7 +184,8 @@ def data_experience_weight():
 
 
 @eel.expose
-def data_knob_effect():
+def data_knob_effect(key):
+    
     data = {
         "tooltip": {
             "trigger": "item"

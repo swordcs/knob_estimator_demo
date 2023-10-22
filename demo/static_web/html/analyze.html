@@ -330,18 +330,18 @@
                     <i class="material-icons md-18">&#xe5d4;</i>
                   </a>
                   <div class="dropdown-menu dropdown-menu-scale pull-right">
-                    <a class="dropdown-item" href>effective_cache_size</a>
-                    <a class="dropdown-item" href>geqo_selection_bias</a>
-                    <a class="dropdown-item" href>maintenance_work_mem</a>
-                    <a class="dropdown-item" href>max_wal_size</a>
-                    <a class="dropdown-item" href>random_page_cost</a>
-                    <a class="dropdown-item" href>work_mem</a>
-                    <a class="dropdown-item" href>enable_nestloop</a>
-                    <a class="dropdown-item" href>full_page_writes</a>
-                    <a class="dropdown-item" href>plan_cache_mode</a>
-                    <a class="dropdown-item" href>commit_delay</a>
-                    <a class="dropdown-item" href>shared_buffers</a>
-                    <a class="dropdown-item" href>wal_buffers</a>
+                    <a class="dropdown-item" onclick="refresh('effective_cache_size')">effective_cache_size</a>
+                    <a class="dropdown-item" onclick="refresh('geqo_selection_bias')">geqo_selection_bias</a>
+                    <a class="dropdown-item" onclick="refresh('maintenance_work_mem')">maintenance_work_mem</a>
+                    <a class="dropdown-item" onclick="refresh('max_wal_size')">max_wal_size</a>
+                    <a class="dropdown-item" onclick="refresh('random_page_cost')">random_page_cost</a>
+                    <a class="dropdown-item" onclick="refresh('work_mem')">work_mem</a>
+                    <a class="dropdown-item" onclick="refresh('enable_nestloop')">enable_nestloop</a>
+                    <a class="dropdown-item" onclick="refresh('full_page_writes')">full_page_writes</a>
+                    <a class="dropdown-item" onclick="refresh('plan_cache_mode')">plan_cache_mode</a>
+                    <a class="dropdown-item" onclick="refresh('commit_delay')">commit_delay</a>
+                    <a class="dropdown-item" onclick="refresh('shared_buffers')">shared_buffers</a>
+                    <a class="dropdown-item" onclick="refresh('wal_buffers')">wal_buffers</a>
 
                   </div>
                 </li>
@@ -457,10 +457,10 @@
         renderChart(chart1Data, "workload_feature");
         renderChart(chart2Data, "knob_importance");
       }
-      async function refresh() {
-        const chart1Data = await eel.data_experience_weight()();
-        const chart2Data = await eel.data_knob_effect()();
-        renderChart(chart1Data, "experience_weight");
+      async function refresh(key) {
+        // const chart1Data = await eel.data_experience_weight()();
+        const chart2Data = await eel.data_knob_effect(key)();
+        // renderChart(chart1Data, "experience_weight");
         renderChart(chart2Data, "knob_effect");
       }
       async function estimate() {
