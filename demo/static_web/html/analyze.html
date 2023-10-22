@@ -271,12 +271,12 @@
               <ul class="nav" style="padding-top: 2px;">
                 <li class="nav-item inline">
                   <a class="nav-link">
-                    <i class="material-icons md-18" onclick="analyze('tpcc-2')">&#xe163;</i>
+                    <i class="material-icons md-18" onclick="analyze('ycsb-4')">&#xe163;</i>
                   </a>
                 </li>
               </ul>
               <div class="box-header" style="padding-top: 7px;">
-                <h2 style="cursor: pointer;" onclick="analyze('tpcc-2')">Analyze</h2>
+                <h2 style="cursor: pointer;" onclick="analyze('ycsb-4')">Analyze</h2>
               </div>
             </div>
             <div class="box">
@@ -322,7 +322,7 @@
               <ul class="nav">
                 <li class="nav-item inline">
                   <a class="nav-link">
-                    <i class="material-icons md-18" onclick="refresh()">&#xe863;</i>
+                    <i class="material-icons md-18" onclick="refresh('effective_cache_size')">&#xe863;</i>
                   </a>
                 </li>
                 <li class="nav-item inline dropdown">
@@ -444,6 +444,8 @@
     <script type="text/javascript" src="/eel.js"></script>
     <script>
       var interval = null;
+      const sleep = ms => new Promise(r => setTimeout(r, ms));
+
       async function renderChart(chartData, chartElementId) {
         const chartElement = document.getElementById(chartElementId);
         const chart = echarts.init(chartElement);
@@ -461,10 +463,14 @@
         // const chart1Data = await eel.data_experience_weight()();
         const chart2Data = await eel.data_knob_effect(key)();
         // renderChart(chart1Data, "experience_weight");
+        await sleep(300);
+
         renderChart(chart2Data, "knob_effect");
       }
       async function estimate() {
         const chart1Data = await eel.data_knob_estimation()();
+        await sleep(800);
+
         renderChart(chart1Data, "knob_estimation");
       }
 

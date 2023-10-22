@@ -7,11 +7,13 @@ import json
 import random
 count = 0
 collecting = False
-total_data = [0] + [random.randint(20, 4000) for _ in range(100)]
+total_data = [0] + [random.randint(20, 900) for _ in range(100)]
 experience = None
+knob_effect = None
 with open("demo/backend/share/experience.json") as f:
     experience = json.load(f)
-
+with open("demo/backend/share/perf_stat_ycsb4.json") as f:
+    knob_effect = json.load(f)
 @eel.expose
 def hello():
     print('Hello from %s' % time.time())
@@ -185,13 +187,20 @@ def data_experience_weight():
 
 @eel.expose
 def data_knob_effect(key):
-    
+    assert key in knob_effect.keys()
+    name = [key]
+    try:
+        int(knob_effect[key]["knob_conf"][0])
+        x_data = [str(int(x)) + knob_effect[key].get("unit", "")  for x in knob_effect[key]["knob_conf"]]
+    except:
+        x_data = [x for x in knob_effect[key]["knob_conf"]]
+    y_data = [int(y) for y in knob_effect[key]["knob_perf"]]
     data = {
         "tooltip": {
             "trigger": "item"
         },
         "legend": {
-            "data": ["shared_buffers"]
+            "data": name,
         },
         "calculable":
         True,
@@ -201,7 +210,7 @@ def data_knob_effect(key):
             "boundaryGap":
             False,
             "data":
-            ["32MB", "64MB", "96MB", "128MB", "160MB", "192MB", "224MB"]
+            x_data
         }],
         "yAxis": [{
             "type": "value",
@@ -210,9 +219,9 @@ def data_knob_effect(key):
             }
         }],
         "series": [{
-            "name": "shared_buffers",
+            "name": name[0],
             "type": "line",
-            "data": [20, 11, 15, 5, 12, 13, 10],
+            "data": y_data,
             "markPoint": {
                 "data": [{
                     "type": "max",
@@ -230,7 +239,7 @@ def data_knob_effect(key):
             },
             "itemStyle": {
                 "normal": {
-                    "color": "#fcc100"
+                    "color": "#ff4040"
                 }
             }
         }]
@@ -238,8 +247,16 @@ def data_knob_effect(key):
     return json.dumps(data)
 
 
+est_count = 0
+
 @eel.expose
 def data_knob_estimation():
+    global est_count 
+    est_data = [0,0]
+    if est_count == 1:
+       est_data =  [63, 654]
+    elif est_count == 2:
+        est_data =  [63, 3302]
     data = {
         "tooltip": {
             "trigger": "item"
@@ -255,7 +272,7 @@ def data_knob_estimation():
         }],
         "series": [{
             "type": "bar",
-            "data": [162.2, 135.6],
+            "data": est_data,
             "markPoint": {
                 "data": [{
                     "type": "max",
