@@ -257,6 +257,7 @@ def data_knob_estimation():
        est_data =  [63, 654]
     elif est_count == 2:
         est_data =  [63, 3302]
+    est_count += 1
     data = {
         "tooltip": {
             "trigger": "item"
