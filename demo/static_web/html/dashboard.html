@@ -168,7 +168,7 @@
         </div>
         <div class="padding" style="padding-bottom: 2px;">
           <div class="row">
-            <div class="col-xs-6 col-sm-6" style="padding-bottom: 0
+            <div class="col-xs-12 col-sm-12" style="padding-bottom: 0
             ;">
               <div class="box p-a">
                 <div class="pull-left m-r">
@@ -182,7 +182,7 @@
                 </div>
               </div>
             </div>
-            <div class="col-xs-6 col-sm-6">
+            <!-- <div class="col-xs-6 col-sm-6">
               <div class="box p-a ">
                 <div class="pull-left m-r">
                   <span class="w-48 rounded primary">
@@ -194,7 +194,7 @@
                   <small class="text-muted">Union Set of Historical Transferable Knobs</small>
                 </div>
               </div>
-            </div>
+            </div> -->
 
           </div>
 
@@ -279,7 +279,7 @@
         <div class="padding" style="padding-top: 0%;">
           <div class="box green-50">
             <div class="box-header">
-              <h2>Experirence Repository</h2>
+              <h2>Experience Repository</h2>
             </div>
             <div class="box-tool">
               <ul class="nav">
@@ -293,22 +293,22 @@
                     <i class="material-icons md-18">&#xe5d4;</i>
                   </a>
                   <div class="dropdown-menu dropdown-menu-scale pull-right">
-                    <a class="dropdown-item" onclick="analyze('tpcc-1')">TPCC-1</a>
-                    <a class="dropdown-item" onclick="analyze('tpcc-2')">TPCC-2</a>
-                    <a class="dropdown-item" onclick="analyze('tpcc-3')">TPCC-3</a>
+                    <a class="dropdown-item" onclick="analyze('ycsb-1')">YCSB-1</a>
+                    <a class="dropdown-item" onclick="analyze('ycsb-3')">YCSB-3</a>
+                    <a class="dropdown-item" onclick="analyze('ycsb-2')">YCSB-2</a>
+                    <a class="dropdown-item" onclick="analyze('ycsb-5')">YCSB-5</a>
                     <a class="dropdown-item" onclick="analyze('tpcc-4')">TPCC-4</a>
+                    <a class="dropdown-item" onclick="analyze('tpcc-2')">TPCC-2</a>
+                    <a class="dropdown-item" onclick="analyze('ycsb-8')">YCSB-8</a>
+                    <a class="dropdown-item" onclick="analyze('ycsb-6')">YCSB-6</a>
+                    <a class="dropdown-item" onclick="analyze('tpcc-8')">TPCC-8</a>
+                    <a class="dropdown-item" onclick="analyze('tpcc-1')">TPCC-1</a>
+                    <!-- <a class="dropdown-item" onclick="analyze('tpcc-7')">TPCC-7</a>
+                    <a class="dropdown-item" onclick="analyze('tpcc-3')">TPCC-3</a>
                     <a class="dropdown-item" onclick="analyze('tpcc-5')">TPCC-5</a>
                     <a class="dropdown-item" onclick="analyze('tpcc-6')">TPCC-6</a>
-                    <a class="dropdown-item" onclick="analyze('tpcc-7')">TPCC-7</a>
-                    <a class="dropdown-item" onclick="analyze('tpcc-8')">TPCC-8</a>
-                    <a class="dropdown-item" onclick="analyze('ycsb-1')">YCSB-1</a>
-                    <a class="dropdown-item" onclick="analyze('ycsb-2')">YCSB-2</a>
-                    <a class="dropdown-item" onclick="analyze('ycsb-3')">YCSB-3</a>
                     <a class="dropdown-item" onclick="analyze('ycsb-4')">YCSB-4</a>
-                    <a class="dropdown-item" onclick="analyze('ycsb-5')">YCSB-5</a>
-                    <a class="dropdown-item" onclick="analyze('ycsb-6')">YCSB-6</a>
-                    <a class="dropdown-item" onclick="analyze('ycsb-7')">YCSB-7</a>
-                    <a class="dropdown-item" onclick="analyze('ycsb-8')">YCSB-8</a>
+                    <a class="dropdown-item" onclick="analyze('ycsb-7')">YCSB-7</a> -->
 
                   </div>
                 </li>
@@ -424,9 +424,9 @@
       async function load() {
         await sleep(300);
         const experienceNum = document.getElementById("experienceNum");
-        const knobNum = document.getElementById("knobNum");
+        // const knobNum = document.getElementById("knobNum");
         experienceNum.innerText = 16;
-        knobNum.innerText = 12;
+        // knobNum.innerText = 12;
 
         const configData = document.getElementById("config_preview");
         const pre = document.createElement('pre');
@@ -435,22 +435,21 @@
         const code = document.createElement('code');
         code.id = 'config.yaml';
         code.className = 'language-yaml';
-        code.innerHTML = `common:
-  data_path: /home/postgres/DBMind/data
+        code.innerHTML = `host:
   host: 127.0.0.1
   host_user: postgres
   ssh_port: 22
 
 database:
   port: 5432
-  user: dba
+  user: postgres
   name: ycsb
   HOME: /opt/postgres
 
-collect:
-  rank: 6
+training:
+  data_path: /home/postgres/DBMind/data
   size: 100
-  sample_policy: lhs 
+  sample_policy: LHS 
   workload:
     name: ycsb
     HOME: /home/postgres/benchbase
@@ -467,8 +466,10 @@ collect:
     - geqo_selection_bias
     - max_wal_size
     - maintenance_work_mem
-    
-evaluate:
+
+estimation:
+  sample: 10
+  exp_num: 10
   model_path: /home/postgres/ycsb_model.pkl
 `;
         pre.appendChild(code);

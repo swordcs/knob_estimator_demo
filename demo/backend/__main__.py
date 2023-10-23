@@ -12,7 +12,7 @@ experience = None
 knob_effect = None
 with open("demo/backend/share/experience.json") as f:
     experience = json.load(f)
-with open("demo/backend/share/perf_stat_ycsb4.json") as f:
+with open("demo/backend/share/perf_stat_tpcc2.json") as f:
     knob_effect = json.load(f)
 @eel.expose
 def hello():
@@ -252,11 +252,7 @@ est_count = 0
 @eel.expose
 def data_knob_estimation():
     global est_count 
-    est_data = [0,0]
-    if est_count == 1:
-       est_data =  [63, 654]
-    elif est_count == 2:
-        est_data =  [63, 3302]
+    est_data =  [480, 312]
     est_count += 1
     data = {
         "tooltip": {

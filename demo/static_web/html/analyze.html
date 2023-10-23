@@ -169,25 +169,100 @@
 
         <!-- config preview -->
 
-        <div class="padding" style="padding-bottom: 0%;">
-          <div class="row">
-            <!-- Data Collection -->
-            <div class="col-sm-8 col-md-8">
-              <div class="box">
-                <div class="box-body">
-                  <h6>Data Collection</h6>
-                  <div>
-                    <div class="box-body">
-                      <div id="data_collection" ui-jp="chart" ui-options="" style="height:250px;">
+        <div class="padding" style="padding-bottom: 0%; margin-top: 1%;">
+          <div class="box">
+
+
+            <div class="row">
+              <div class="col-sm-4 col-md-4">
+                <div class="box">
+                  <div class="box-header">
+                    <h2>Model Training</h2>
+                  </div>
+                </div>
+                <div>
+                  <div class="box grey-100">
+                    <!-- <div class="box-header padding-bottom: 0">
+                      <h6>Run Program</h2>
+                    </div> -->
+                    <div class="box">
+                      <div class="box-header">
+                        <h3>Parameters</h3>
+                      </div>
+                      <div class="box-divider m-0"></div>
+                      <div class="box-body">
+                        <form role="form">
+                          <div class="form-group row">
+                            <label class="col-sm-3 form-control-label">collect</label>
+                            <div class="col-sm-3">
+                              <label class="ui-switch ui-switch-md info m-t-xs">
+                                <input type="checkbox" checked>
+                                <i></i>
+                              </label>
+                            </div>
+                            <label class="col-sm-3 form-control-label">rank</label>
+                            <div class="col-sm-3">
+                              <label class="ui-switch ui-switch-md info m-t-xs">
+                                <input type="checkbox" checked>
+                                <i></i>
+                              </label>
+                            </div>
+                            <!-- <label class="col-sm-3 form-control-label">train</label>
+                          <div class="col-sm-3">
+                            <label class="ui-switch ui-switch-md info m-t-xs">
+                              <input type="checkbox" checked>
+                              <i></i>
+                            </label>
+                          </div> -->
+                            <label class="col-sm-3 form-control-label">save</label>
+                            <div class="col-sm-3">
+                              <label class="ui-switch ui-switch-md info m-t-xs">
+                                <input type="checkbox" checked>
+                                <i></i>
+                              </label>
+                            </div>
+                            <label class="col-sm-3 form-control-label">use_exp</label>
+                            <div class="col-sm-3">
+                              <label class="ui-switch ui-switch-md info m-t-xs">
+                                <input type="checkbox" checked>
+                                <i></i>
+                              </label>
+                            </div>
+
+                            <!-- <div class="offset-9 col-sm-1" style="padding-bottom: 30px;">
+                            <span class="w-40 rounded  success">
+                              <i class="material-icons">&#xe5ca;</i>
+                            </span>
+                          </div> -->
+                            <div class="offset-3 col-sm-1" style="padding-top: 110px;">
+                              <a class="btn success pull-right" onclick="start_run()">Run</a>
+                            </div>
+
+                          </div>
+                        </form>
                       </div>
                     </div>
                   </div>
-                  <h7>progress</h7>
-                  <div style="padding-top: 10px;">
-                    <div class="progress mb-2">
-                      <div id="progress_bar" class="progress-bar progress-bar-striped progress-bar-animated primary"
-                        style="width: 0%">
-                        0%
+                </div>
+              </div>
+              <!-- Data Collection -->
+              <div class="col-sm-8 col-md-8">
+                <div class="box">
+                  <div class="box-body">
+                    <h6>Data Collection</h6>
+                    <div>
+                      <div class="box-body padding-bottom: 0%">
+                        <div id="data_collection" ui-jp="chart" ui-options="" style="height:250px;">
+                        </div>
+                      </div>
+                    </div>
+                    <h7>progress</h7>
+                    <div style="padding-top: 10px;">
+                      <div class="progress mb-2">
+                        <div id="progress_bar" class="progress-bar progress-bar-striped progress-bar-animated primary"
+                          style="width: 0%">
+                          0%
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -195,89 +270,26 @@
               </div>
             </div>
             <!-- Run Program -->
-            <div class="col-sm-4 col-md-4">
-              <div class="box grey-100">
-                <div class="box-header">
-                  <h2>Run Program</h2>
-                </div>
-                <div class="box">
-                  <div class="box-header">
-                    <h3>Parameters</h3>
-                  </div>
-                  <div class="box-divider m-0"></div>
-                  <div class="box-body">
-                    <form role="form">
-                      <div class="form-group row">
-                        <label class="col-sm-3 form-control-label">collect</label>
-                        <div class="col-sm-3">
-                          <label class="ui-switch ui-switch-md info m-t-xs">
-                            <input type="checkbox" checked>
-                            <i></i>
-                          </label>
-                        </div>
-                        <label class="col-sm-3 form-control-label">two_stage</label>
-                        <div class="col-sm-3">
-                          <label class="ui-switch ui-switch-md info m-t-xs">
-                            <input type="checkbox" checked>
-                            <i></i>
-                          </label>
-                        </div>
-                        <!-- <label class="col-sm-3 form-control-label">train</label>
-                        <div class="col-sm-3">
-                          <label class="ui-switch ui-switch-md info m-t-xs">
-                            <input type="checkbox" checked>
-                            <i></i>
-                          </label>
-                        </div> -->
-                        <label class="col-sm-3 form-control-label">save</label>
-                        <div class="col-sm-3">
-                          <label class="ui-switch ui-switch-md info m-t-xs">
-                            <input type="checkbox" checked>
-                            <i></i>
-                          </label>
-                        </div>
-                        <label class="col-sm-3 form-control-label">use_exp</label>
-                        <div class="col-sm-3">
-                          <label class="ui-switch ui-switch-md info m-t-xs">
-                            <input type="checkbox" checked>
-                            <i></i>
-                          </label>
-                        </div>
 
-                        <!-- <div class="offset-9 col-sm-1" style="padding-bottom: 30px;">
-                          <span class="w-40 rounded  success">
-                            <i class="material-icons">&#xe5ca;</i>
-                          </span>
-                        </div> -->
-                        <div class="offset-10 col-sm-1" style="padding-top: 30px;">
-                          <a class="btn success pull-right" onclick="start_run()">Run</a>
-                        </div>
-
-                      </div>
-                    </form>
-                  </div>
-                </div>
-              </div>
-            </div>
           </div>
         </div>
         <!-- Result Analyze -->
         <div class="padding" style="padding-top: 0%;">
           <div class="box green-50">
             <div class="box-header">
-              <h2>Workload Analyze</h2>
+              <h2>Analysis</h2>
             </div>
             <div class="box-tool row">
 
               <ul class="nav" style="padding-top: 2px;">
                 <li class="nav-item inline">
                   <a class="nav-link">
-                    <i class="material-icons md-18" onclick="analyze('ycsb-4')">&#xe163;</i>
+                    <i class="material-icons md-18" onclick="analyze('tpcc-2')">&#xe163;</i>
                   </a>
                 </li>
               </ul>
               <div class="box-header" style="padding-top: 7px;">
-                <h2 style="cursor: pointer;" onclick="analyze('ycsb-4')">Analyze</h2>
+                <h2 style="cursor: pointer;" onclick="analyze('tpcc-2')">Analyze</h2>
               </div>
             </div>
             <div class="box">
@@ -355,7 +367,7 @@
                   <div class="box">
                     <div class="box-header" style="padding-bottom: 0%;">
                       <h3>Relative Performance </h3>
-                      <small class="block text-muted">Estimated Knob Performance</small>
+                      <small class="block text-muted" id="recommandation">Estimated Knob Performance</small>
                     </div>
                     <div class="box-body" style="padding: 0%;">
                       <div id="knob_estimation" ui-jp="chart" ui-options="" style="height:200px;">
@@ -469,9 +481,11 @@
         renderChart(chart2Data, "knob_effect");
       }
       async function estimate() {
+        const rec = document.getElementById("recommandation");
         const chart1Data = await eel.data_knob_estimation()();
-        await sleep(800);
 
+        await sleep(800);
+        rec.innerText = "plan_cache_mode=force_generic_plan, may lead to worse performance";
         renderChart(chart1Data, "knob_estimation");
       }
 
