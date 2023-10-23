@@ -485,13 +485,13 @@
         const chart1Data = await eel.data_knob_estimation()();
 
         await sleep(800);
-        rec.innerText = "plan_cache_mode=force_generic_plan, may lead to worse performance";
+        rec.innerText = "Risky Knobs: plan_cache_mode; Impact: Negative";
         renderChart(chart1Data, "knob_estimation");
       }
 
       async function start_run() {
         update_data();
-        const pollingInterval = 6_000;
+        const pollingInterval = 65_000;
         eel.start_run();
         interval = setInterval(update_data, pollingInterval);
       }

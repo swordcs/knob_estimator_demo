@@ -210,7 +210,7 @@
                 </div>
                 <div class="box">
                   <div class="box-divider m-0"></div>
-                  <div class="box-body" style="height: 310px; overflow: auto;">
+                  <div class="box-body" style="height: 500px; overflow: auto;">
                     <!-- Not upload yet -->
                     <div id="config_preview">
                       <!-- <pre class="line-numbers"><code id="config.yaml" class="language-yaml"><br></code></pre> -->
@@ -293,22 +293,22 @@
                     <i class="material-icons md-18">&#xe5d4;</i>
                   </a>
                   <div class="dropdown-menu dropdown-menu-scale pull-right">
-                    <a class="dropdown-item" onclick="analyze('ycsb-1')">YCSB-1</a>
+                    <!-- <a class="dropdown-item" onclick="analyze('ycsb-1')">YCSB-1</a>
                     <a class="dropdown-item" onclick="analyze('ycsb-3')">YCSB-3</a>
                     <a class="dropdown-item" onclick="analyze('ycsb-2')">YCSB-2</a>
                     <a class="dropdown-item" onclick="analyze('ycsb-5')">YCSB-5</a>
+                    <a class="dropdown-item" onclick="analyze('ycsb-8')">YCSB-8</a>
+                    <a class="dropdown-item" onclick="analyze('ycsb-6')">YCSB-6</a> -->
                     <a class="dropdown-item" onclick="analyze('tpcc-4')">TPCC-4</a>
                     <a class="dropdown-item" onclick="analyze('tpcc-2')">TPCC-2</a>
-                    <a class="dropdown-item" onclick="analyze('ycsb-8')">YCSB-8</a>
-                    <a class="dropdown-item" onclick="analyze('ycsb-6')">YCSB-6</a>
                     <a class="dropdown-item" onclick="analyze('tpcc-8')">TPCC-8</a>
                     <a class="dropdown-item" onclick="analyze('tpcc-1')">TPCC-1</a>
-                    <!-- <a class="dropdown-item" onclick="analyze('tpcc-7')">TPCC-7</a>
+                    <a class="dropdown-item" onclick="analyze('tpcc-7')">TPCC-7</a>
                     <a class="dropdown-item" onclick="analyze('tpcc-3')">TPCC-3</a>
                     <a class="dropdown-item" onclick="analyze('tpcc-5')">TPCC-5</a>
                     <a class="dropdown-item" onclick="analyze('tpcc-6')">TPCC-6</a>
                     <a class="dropdown-item" onclick="analyze('ycsb-4')">YCSB-4</a>
-                    <a class="dropdown-item" onclick="analyze('ycsb-7')">YCSB-7</a> -->
+                    <a class="dropdown-item" onclick="analyze('ycsb-7')">YCSB-7</a>
 
                   </div>
                 </li>
@@ -481,7 +481,7 @@ estimation:
         Prism.highlightElement(code);
         await sleep(800);
 
-        analyze('tpcc-1');
+        // analyze('tpcc-1');
       }
     </script>
     <!-- endbuild -->
