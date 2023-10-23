@@ -443,7 +443,7 @@
 database:
   port: 5432
   user: postgres
-  name: ycsb
+  name: tpcc
   HOME: /opt/postgres
 
 training:
@@ -451,7 +451,7 @@ training:
   size: 100
   sample_policy: LHS 
   workload:
-    name: ycsb
+    name: tpcc
     HOME: /home/postgres/benchbase
   knob_candidates:
     - wal_buffers
