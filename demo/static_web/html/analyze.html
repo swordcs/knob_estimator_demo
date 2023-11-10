@@ -196,14 +196,14 @@
                             <label class="col-sm-3 form-control-label">collect</label>
                             <div class="col-sm-3">
                               <label class="ui-switch ui-switch-md info m-t-xs">
-                                <input type="checkbox" checked>
+                                <input id="collect" name="test" type="checkbox" checked>
                                 <i></i>
                               </label>
                             </div>
                             <label class="col-sm-3 form-control-label">rank</label>
                             <div class="col-sm-3">
                               <label class="ui-switch ui-switch-md info m-t-xs">
-                                <input type="checkbox" checked>
+                                <input id="rank" name="test" type="checkbox" checked>
                                 <i></i>
                               </label>
                             </div>
@@ -217,14 +217,14 @@
                             <label class="col-sm-3 form-control-label">save</label>
                             <div class="col-sm-3">
                               <label class="ui-switch ui-switch-md info m-t-xs">
-                                <input type="checkbox" checked>
+                                <input id="save" name="test" type="checkbox" checked>
                                 <i></i>
                               </label>
                             </div>
                             <label class="col-sm-3 form-control-label">use_exp</label>
                             <div class="col-sm-3">
                               <label class="ui-switch ui-switch-md info m-t-xs">
-                                <input type="checkbox" checked>
+                                <input id="use_exp" name="test" type="checkbox" checked>
                                 <i></i>
                               </label>
                             </div>
@@ -378,7 +378,7 @@
                     </div>
                     <div class="row padding">
                       <div class="box-body col-sm-8" style="padding-top: 0%;padding-bottom: 0%;">
-                        <div class="box p-a m-b-md" style="height: 150px; overflow: auto;">
+                        <div class="box p-a m-b-md" id="conf" style="height: 150px; overflow: auto;">
 
                           <div class="box p-a m-b-md">
                             <div ui-jp="summernote" ui-options="{airMode: true}">
@@ -452,7 +452,9 @@
 
     <!-- prism highklight -->
     <script src="../libs/js/prism/prism.js"></script>
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.12/ace.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.12/mode-yaml.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.12/theme-dawn.min.js"></script>
     <!-- eel -->
     <script type="text/javascript" src="/eel.js"></script>
     <script>
@@ -483,10 +485,12 @@
       async function estimate() {
         const rec = document.getElementById("recommandation");
         const chart1Data = await eel.data_knob_estimation()();
-
         await sleep(800);
         rec.innerText = "Risky Knobs: plan_cache_mode; Impact: Negative";
         renderChart(chart1Data, "knob_estimation");
+        var editor = ace.edit("conf");
+        var modifiedContent = editor.getValue();
+        const result = await eel.handleModifiedContent(modifiedContent)();
       }
 
       async function start_run() {
@@ -494,6 +498,12 @@
         const pollingInterval = 65_000;
         eel.start_run();
         interval = setInterval(update_data, pollingInterval);
+        var tests = document.getElementsByName("test");
+        for (var i = 0; i < tests.length; i++) {
+          if (tests[i].checked) {
+            console.log(tests[i].id)
+          }
+        }
       }
 
       async function update_data() {
@@ -539,7 +549,14 @@
           clearInterval(interval);
         }
       }
-
+      document.addEventListener("DOMContentLoaded", function () {
+        var editor = ace.edit("conf");
+        editor.setTheme("ace/theme/dawn");
+        editor.setFontSize(16);
+        editor.session.setMode("ace/mode/yaml");
+        editor.setValue("old_conf:\nnew_conf:");
+        editor.clearSelection();
+      });
     </script>
     <!-- endbuild -->
 </body>

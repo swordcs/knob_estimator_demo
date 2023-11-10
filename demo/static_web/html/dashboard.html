@@ -210,9 +210,9 @@
                 </div>
                 <div class="box">
                   <div class="box-divider m-0"></div>
-                  <div class="box-body" style="height: 500px; overflow: auto;">
+                  <div class="box-body" id="config_preview" style="height: 500px; overflow: auto;">
                     <!-- Not upload yet -->
-                    <div id="config_preview">
+                    <div>
                       <!-- <pre class="line-numbers"><code id="config.yaml" class="language-yaml"><br></code></pre> -->
                     </div>
                   </div>
@@ -233,7 +233,7 @@
                     <form role="form">
 
                       <div class="form-group row">
-                        <label  class="col-sm-3 form-control-label">SSH Password</label>
+                        <label class="col-sm-3 form-control-label">SSH Password</label>
                         <div class="col-sm-9">
                           <input type="password" class="form-control" placeholder="SSH Password">
                         </div>
@@ -241,14 +241,13 @@
                       <div class="form-group row">
                         <label class="col-sm-3 form-control-label">DB Password</label>
                         <div class="col-sm-9">
-                          <input type="password" class="form-control"
-                            placeholder="Database Password">
+                          <input type="password" class="form-control" placeholder="Database Password">
                         </div>
                       </div>
                       <div class="form-group row">
                         <label class="col-sm-3 form-control-label">Config File</label>
                         <div class="col-sm-9">
-                          <input type="file" class="form-control">
+                          <input type="file" accept=".yaml" class="form-control">
                         </div>
                       </div>
                       <!-- <div class="form-group row">
@@ -259,7 +258,7 @@
                       </div> -->
                       <div class="form-group row m-t-md">
                         <div class="col-offset-3 col-sm-3">
-                          <a class="btn white grey-300 pull-right" onclick="load()">Load</a>
+                          <a class="btn white grey-300 pull-right" onclick="handleFile()">Load</a>
                         </div>
                         <div class="col-sm-offset-2 col-sm-8">
                           <a class="btn white primary pull-right" href="../html/analyze.html"
@@ -389,6 +388,9 @@
 
     <!-- prism highklight -->
     <script src="../libs/js/prism/prism.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.12/ace.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.12/mode-yaml.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.12/theme-dawn.min.js"></script>
     <!-- eel -->
     <script type="text/javascript" src="/eel.js"></script>
     <script>
@@ -421,67 +423,30 @@
         renderChart(chart2Data, "knob_importance");
       }
 
-      async function load() {
-        await sleep(300);
-        const experienceNum = document.getElementById("experienceNum");
-        // const knobNum = document.getElementById("knobNum");
-        experienceNum.innerText = 16;
-        // knobNum.innerText = 12;
+      async function initializeEditor(data) {
+        var editor = ace.edit("config_preview");
+        editor.setTheme("ace/theme/dawn");
+        editor.setFontSize(16);
+        editor.session.setMode("ace/mode/yaml");
+        editor.setValue(data);
+        editor.clearSelection();
+      }
 
-        const configData = document.getElementById("config_preview");
-        const pre = document.createElement('pre');
-        pre.className = 'line-numbers';
-        // 创建code元素  
-        const code = document.createElement('code');
-        code.id = 'config.yaml';
-        code.className = 'language-yaml';
-        code.innerHTML = `host:
-  host: 127.0.0.1
-  host_user: postgres
-  ssh_port: 22
-
-database:
-  port: 5432
-  user: postgres
-  name: tpcc
-  HOME: /opt/postgres
-
-training:
-  data_path: /home/postgres/DBMind/data
-  size: 100
-  sample_policy: LHS 
-  workload:
-    name: tpcc
-    HOME: /home/postgres/benchbase
-  knob_candidates:
-    - wal_buffers
-    - commit_delay
-    - effective_cache_size
-    - enable_nestloop
-    - plan_cache_mode
-    - random_page_cost
-    - shared_buffers
-    - work_mem
-    - full_page_writes
-    - geqo_selection_bias
-    - max_wal_size
-    - maintenance_work_mem
-
-estimation:
-  sample: 10
-  exp_num: 10
-  model_path: /home/postgres/ycsb_model.pkl
-`;
-        pre.appendChild(code);
-        while (configData.firstChild) {
-          configData.removeChild(configData.firstChild);
+      function handle(input) {
+        var file = input.files[0];
+        var reader = new FileReader();
+        reader.onload = function () {
+          var yamlContent = this.result;
+          initializeEditor(yamlContent);
         }
-
-        configData.appendChild(pre);
-        Prism.highlightElement(code);
-        await sleep(800);
-
-        // analyze('tpcc-1');
+        reader.readAsText(file);
+      }
+      function handleFile() {
+        var input = document.querySelector('input[type="file"]');
+        var file = input.files[0];
+        if (file) {
+          handle(input);
+        }
       }
     </script>
     <!-- endbuild -->
