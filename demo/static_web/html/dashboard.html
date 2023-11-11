@@ -407,7 +407,6 @@
         }
       });
 
-      const sleep = ms => new Promise(r => setTimeout(r, ms));
       async function renderChart(chartData, chartElementId) {
         const chartElement = document.getElementById(chartElementId);
         const chart = echarts.init(chartElement);
@@ -419,33 +418,28 @@
         const chart1Data = await eel.data_workload_feature(key)();
         const chart2Data = await eel.data_knob_importance(key)();
         renderChart(chart1Data, "workload_feature");
-        await sleep(500)
         renderChart(chart2Data, "knob_importance");
       }
 
-      async function initializeEditor(data) {
-        var editor = ace.edit("config_preview");
-        editor.setTheme("ace/theme/dawn");
-        editor.setFontSize(16);
-        editor.session.setMode("ace/mode/yaml");
-        editor.setValue(data);
-        editor.clearSelection();
+      async function loadFile(yamlContent){
+        eel.load_file(yamlContent);
       }
 
-      function handle(input) {
-        var file = input.files[0];
-        var reader = new FileReader();
-        reader.onload = function () {
-          var yamlContent = this.result;
-          initializeEditor(yamlContent);
-        }
-        reader.readAsText(file);
-      }
       function handleFile() {
         var input = document.querySelector('input[type="file"]');
         var file = input.files[0];
         if (file) {
-          handle(input);
+          var reader = new FileReader();
+          reader.onload = function () {
+            var yamlContent = this.result;
+            var editor = ace.edit("config_preview");
+            editor.setTheme("ace/theme/dawn");
+            editor.setFontSize(16);
+            editor.session.setMode("ace/mode/yaml");
+            editor.setValue(yamlContent);
+            editor.clearSelection();
+          }
+          reader.readAsText(file);
         }
       }
     </script>
