@@ -421,7 +421,7 @@
         renderChart(chart2Data, "knob_importance");
       }
 
-      async function loadFile(yamlContent){
+      function loadFile(yamlContent){
         eel.load_file(yamlContent);
       }
 
@@ -438,6 +438,8 @@
             editor.session.setMode("ace/mode/yaml");
             editor.setValue(yamlContent);
             editor.clearSelection();
+            
+            loadFile(yamlContent);
           }
           reader.readAsText(file);
         }
