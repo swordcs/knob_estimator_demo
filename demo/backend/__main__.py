@@ -249,11 +249,14 @@ def data_knob_effect(key):
     return json.dumps(data)
 
 
-est_count = 0
-
 @eel.expose
-def data_knob_estimation():
-    est_data =  [480, 312]
+def data_knob_estimation(yamlContent):
+    response = requests.post(API_PREFIX + "knob_estimation", data={"yaml": yamlContent})
+
+    # {"estimation": [0.0, 0.0], "rules": [(rule, impact)]}
+    data = response.json()
+    estimation = data["estimation"]
+    rules = data["rules"]
     data = {
         "tooltip": {
             "trigger": "item"
@@ -269,7 +272,7 @@ def data_knob_estimation():
         }],
         "series": [{
             "type": "bar",
-            "data": est_data,
+            "data": estimation,
             "markPoint": {
                 "data": [{
                     "type": "max",
@@ -290,7 +293,8 @@ def data_knob_estimation():
                     "name": "Average"
                 }]
             }
-        }]
+        }],
+        "rules": rules
     }
     return json.dumps(data)
 
@@ -347,10 +351,12 @@ chart_data = {
 
 
 @eel.expose
-def start_run():
+def start_run(run_value):
     global collecting
     print("run ok stated")
     collecting = True
+    response = requests.post(API_PREFIX + "start_run", data={"run_value": str(run_value)})
+    return response.status_code == 200
 
 @eel.expose
 def get_chart_data():
@@ -365,12 +371,8 @@ def get_chart_data():
 def get_count():
     global count
     old_count = count
-    count = min(100, count + 1)
     return old_count
 
-@eel.expose
-def handleModifiedContent(modifiedContent):
-    print("接收到的最终修改后的内容是：" + modifiedContent)
 
 
 if __name__ == "__main__": 
