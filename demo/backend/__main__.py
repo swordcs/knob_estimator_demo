@@ -30,7 +30,6 @@ def load_file(yamlContent):
 def data_workload_feature(key):
     response = requests.get(API_PREFIX + "workload_feature", params={"key": key})
     data = response.json()
-    assert key in experience.keys()
     all_feature = data.get("all_feature", [])
     suid_feature = data.get("suid_feature", [])
     opts_feature = data.get("opts_feature", [])
@@ -189,15 +188,20 @@ def data_experience_weight():
 
 @eel.expose
 def data_knob_effect(key):
-    assert key in knob_effect.keys()
-    name = [key]
-    try:
-        int(knob_effect[key]["knob_conf"][0])
-        x_data = [str(int(x)) + knob_effect[key].get("unit", "") for x in
-                  knob_effect[key]["knob_conf"]]
-    except:
-        x_data = [x for x in knob_effect[key]["knob_conf"]]
-    y_data = [int(y) for y in knob_effect[key]["knob_perf"]]
+    # assert key in knob_effect.keys()
+    # name = [key]
+    # try:
+    #     int(knob_effect[key]["knob_conf"][0])
+    #     x_data = [str(int(x)) + knob_effect[key].get("unit", "") for x in
+    #               knob_effect[key]["knob_conf"]]
+    # except:
+    #     x_data = [x for x in knob_effect[key]["knob_conf"]]
+    # y_data = [int(y) for y in knob_effect[key]["knob_perf"]]
+    response = requests.get(API_PREFIX + "knob_effect", params={"key": key})
+    data = response.json()
+    name = data["name"]
+    x_data = data["x_data"]
+    y_data = data["y_data"]
     data = {
         "tooltip": {
             "trigger": "item"
