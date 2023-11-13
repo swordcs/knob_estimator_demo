@@ -363,7 +363,7 @@
             <div class="box">
               <div class="box-divider m-0"></div>
               <div class="row">
-                <div class="col-sm-6">
+                <div class="col-sm-7">
                   <div class="box">
                     <div class="box-header" style="padding-bottom: 0%;">
                       <h3>Relative Performance </h3>
@@ -373,12 +373,12 @@
                       <div id="knob_estimation" ui-jp="chart" ui-options="" style="height:200px;">
                       </div>
                     </div>
-                    <div class="box-header" style="padding-bottom: 10px;padding-top: 0%;">
+                    <div class="box-header" style="padding-bottom: 0px;padding-top: 0%;">
                       <h3>Knob Settings </h3>
                     </div>
                     <div class="row padding">
                       <div class="box-body col-sm-10" style="padding-top: 0%;padding-bottom: 0%;">
-                        <div class="box p-a m-b-md" id="conf" style="height: 150px; overflow: auto;">
+                        <div class="box p-a m-b-md" id="conf" style="height: 200px; overflow: auto;">
 
                           <!-- <div class="box p-a m-b-md">
                             <div ui-jp="summernote" ui-options="{airMode: true}">
@@ -395,14 +395,14 @@
 
                   </div>
                 </div>
-                <div class="col-sm-6">
+                <div class="col-sm-5">
                   <div class="box">
                     <div class="box-header">
                       <h3>Knob Effect</h3>
                       <small>Performance Curve with Knob Value</small>
                     </div>
                     <div class="box-body">
-                      <div id="knob_effect" ui-jp="chart" ui-options="" style="height:400px">
+                      <div id="knob_effect" ui-jp="chart" ui-options="" style="height:440px">
                       </div>
                     </div>
                   </div>
@@ -484,11 +484,12 @@
       }
       async function estimate() {
         const rec = document.getElementById("recommandation");
-        await sleep(800);
-        rec.innerText = "Risky Knobs: plan_cache_mode; Impact: Negative";
         var editor = ace.edit("conf");
         var modifiedContent = editor.getValue();
         const chart1Data = await eel.data_knob_estimation(modifiedContent)();
+        var a = $.parseJSON(chart1Data);
+        rec.innerText = a["rules"];
+        console.log(a["rules"])
         renderChart(chart1Data, "knob_estimation");
       }
 

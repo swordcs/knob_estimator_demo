@@ -255,8 +255,12 @@ def data_knob_estimation(yamlContent):
 
     # {"estimation": [0.0, 0.0], "rules": [(rule, impact)]}
     data = response.json()
-    estimation = data["estimation"]
+    estimation = [data["pred_old"], data["pred_new"]]
     rules = data["rules"]
+    rule_impact = []
+    for i in range(len(rules)):
+        rule_impact.append(str(i + 1) +". " +  str(rules[i][0]) + " : " + ("Negative" if rules[i][1]<0 else "Positive"))
+    rule_impact = "\n".join(rule_impact)
     data = {
         "tooltip": {
             "trigger": "item"
@@ -294,7 +298,7 @@ def data_knob_estimation(yamlContent):
                 }]
             }
         }],
-        "rules": rules
+        "rules": rule_impact
     }
     return json.dumps(data)
 
