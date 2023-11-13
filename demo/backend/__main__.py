@@ -4,13 +4,15 @@ import yaml
 import json
 import requests
 
-API_PREFIX = "http://82.156.154.239:30000/"
+API_PREFIX = "http://localhost:5001/"
 
 count = 0
 collecting = False
 
 experience = None
 knob_effect = None
+
+total_data = [0]
 
 with open("demo/backend/share/experience.json") as f:
     experience = json.load(f)
@@ -94,12 +96,10 @@ def data_workload_feature(key):
 
 @eel.expose
 def data_knob_importance(key):
-    knobs = []
-    importance = []
-    assert key in experience.keys()
-    for ele in experience[key]["importance"][:6]:
-        knobs = [ele[0]] + knobs
-        importance = [ele[1]] + importance
+    response = requests.get(API_PREFIX + "knob_importance", params={"key": key})
+    data = response.json()
+    knobs = data["knobs"]
+    importance = data["importance"]
     data = {
         "tooltip": {
             "trigger": 'item'
