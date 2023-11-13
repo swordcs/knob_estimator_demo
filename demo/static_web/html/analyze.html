@@ -490,7 +490,7 @@
         renderChart(chart1Data, "knob_estimation");
         var editor = ace.edit("conf");
         var modifiedContent = editor.getValue();
-        const result = await eel.handleModifiedContent(modifiedContent)();
+        const result = await eel.acceptContent(modifiedContent)();
       }
 
       async function start_run() {
@@ -501,7 +501,7 @@
         var tests = document.getElementsByName("test");
         for (var i = 0; i < tests.length; i++) {
           if (tests[i].checked) {
-            console.log(tests[i].id)
+            const result = await eel.acceptContent(tests[i].id)();
           }
         }
       }

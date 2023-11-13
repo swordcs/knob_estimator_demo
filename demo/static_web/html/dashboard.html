@@ -247,7 +247,7 @@
                       <div class="form-group row">
                         <label class="col-sm-3 form-control-label">Config File</label>
                         <div class="col-sm-9">
-                          <input type="file" accept=".yaml" class="form-control">
+                          <input type="file" accept=".yaml" class="form-control" lang="en">
                         </div>
                       </div>
                       <!-- <div class="form-group row">
@@ -395,12 +395,10 @@
     <script type="text/javascript" src="/eel.js"></script>
     <script>
       const fileInput = document.querySelector('.form-control');
-
       // 监听change事件
       fileInput.addEventListener('change', () => {
         // 获取文件上传框的labels
         const labels = fileInput.labels;
-
         // 遍历labels,修改文字为英文
         for (let label of labels) {
           label.textContent = 'Select file';
@@ -432,22 +430,56 @@
         editor.clearSelection();
       }
 
-      function handle(input) {
-        var file = input.files[0];
-        var reader = new FileReader();
-        reader.onload = function () {
-          var yamlContent = this.result;
-          initializeEditor(yamlContent);
-        }
-        reader.readAsText(file);
-      }
       function handleFile() {
         var input = document.querySelector('input[type="file"]');
         var file = input.files[0];
         if (file) {
-          handle(input);
+          var reader = new FileReader();
+          reader.onload = function () {
+            var yamlContent = this.result;
+            initializeEditor(yamlContent);
+          }
+          reader.readAsText(file);
+        }
+        else {
+          var yamlContent = `host:
+  host: 127.0.0.1
+  host_user: postgres
+  ssh_port: 22
+database:
+  port: 5432
+  user: postgres
+  name: tpcc
+  HOME: /opt/postgres
+training:
+  data_path: /home/postgres/DBMind/data
+  size: 100
+  sample_policy: LHS 
+  workload:
+    name: tpcc
+    HOME: /home/postgres/benchbase
+  knob_candidates:
+    - wal_buffers
+    - commit_delay
+    - effective_cache_size
+    - enable_nestloop
+    - plan_cache_mode
+    - random_page_cost
+    - shared_buffers
+    - work_mem
+    - full_page_writes
+    - geqo_selection_bias
+    - max_wal_size
+    - maintenance_work_mem
+estimation:
+  sample: 10
+  exp_num: 10
+  model_path: /home/postgres/ycsb_model.pkl
+`;
+          initializeEditor(yamlContent);
         }
       }
+
     </script>
     <!-- endbuild -->
 </body>

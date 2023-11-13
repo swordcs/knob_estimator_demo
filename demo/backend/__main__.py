@@ -193,7 +193,8 @@ def data_knob_effect(key):
     name = [key]
     try:
         int(knob_effect[key]["knob_conf"][0])
-        x_data = [str(int(x)) + knob_effect[key].get("unit", "")  for x in knob_effect[key]["knob_conf"]]
+        x_data = [str(int(x)) + knob_effect[key].get("unit", "") for x in
+                  knob_effect[key]["knob_conf"]]
     except:
         x_data = [x for x in knob_effect[key]["knob_conf"]]
     y_data = [int(y) for y in knob_effect[key]["knob_perf"]]
@@ -251,10 +252,11 @@ def data_knob_effect(key):
 
 est_count = 0
 
+
 @eel.expose
 def data_knob_estimation():
-    global est_count 
-    est_data =  [480, 312]
+    global est_count
+    est_data = [480, 312]
     est_count += 1
     data = {
         "tooltip": {
@@ -354,6 +356,7 @@ def start_run():
     print("run ok stated")
     collecting = True
 
+
 @eel.expose
 def get_chart_data():
     global count
@@ -363,6 +366,7 @@ def get_chart_data():
         # count += 1
     return json.dumps(chart_data)
 
+
 @eel.expose
 def get_count():
     global count
@@ -370,11 +374,12 @@ def get_count():
     count = min(100, count + 1)
     return old_count
 
+
 @eel.expose
-def handleModifiedContent(modifiedContent):
+def acceptContent(modifiedContent):
     print("接收到的最终修改后的内容是：" + modifiedContent)
 
 
-if __name__ == "__main__": 
+if __name__ == "__main__":
     eel.init(str(os.path.split(os.path.realpath(__file__))[0]) + '/../static_web')
     eel.start('index.html', mode='chrome')
