@@ -363,7 +363,7 @@
             <div class="box">
               <div class="box-divider m-0"></div>
               <div class="row">
-                <div class="col-sm-6">
+                <div class="col-sm-7">
                   <div class="box">
                     <div class="box-header" style="padding-bottom: 0%;">
                       <h3>Relative Performance </h3>
@@ -373,36 +373,36 @@
                       <div id="knob_estimation" ui-jp="chart" ui-options="" style="height:200px;">
                       </div>
                     </div>
-                    <div class="box-header" style="padding-bottom: 10px;padding-top: 0%;">
+                    <div class="box-header" style="padding-bottom: 0px;padding-top: 0%;">
                       <h3>Knob Settings </h3>
                     </div>
                     <div class="row padding">
-                      <div class="box-body col-sm-8" style="padding-top: 0%;padding-bottom: 0%;">
-                        <div class="box p-a m-b-md" id="conf" style="height: 150px; overflow: auto;">
+                      <div class="box-body col-sm-10" style="padding-top: 0%;padding-bottom: 0%;">
+                        <div class="box p-a m-b-md" id="conf" style="height: 200px; overflow: auto;">
 
-                          <div class="box p-a m-b-md">
+                          <!-- <div class="box p-a m-b-md">
                             <div ui-jp="summernote" ui-options="{airMode: true}">
                               <p>old_conf:</p>
                               <p>new_conf:</p>
                             </div>
-                          </div>
+                          </div> -->
                         </div>
                       </div>
-                      <div class="col-sm-4" style="padding-left: 10%; padding-top: 20%; padding-bottom: 0%;">
+                      <div class="col-sm-2" style="padding-left: 0%; padding-top: 20%; padding-bottom: 0%;">
                         <a type="submit" class="btn info" onclick="estimate()">Estimate</a>
                       </div>
                     </div>
 
                   </div>
                 </div>
-                <div class="col-sm-6">
+                <div class="col-sm-5">
                   <div class="box">
                     <div class="box-header">
                       <h3>Knob Effect</h3>
                       <small>Performance Curve with Knob Value</small>
                     </div>
                     <div class="box-body">
-                      <div id="knob_effect" ui-jp="chart" ui-options="" style="height:400px">
+                      <div id="knob_effect" ui-jp="chart" ui-options="" style="height:440px">
                       </div>
                     </div>
                   </div>
@@ -484,26 +484,28 @@
       }
       async function estimate() {
         const rec = document.getElementById("recommandation");
-        const chart1Data = await eel.data_knob_estimation()();
-        await sleep(800);
-        rec.innerText = "Risky Knobs: plan_cache_mode; Impact: Negative";
-        renderChart(chart1Data, "knob_estimation");
         var editor = ace.edit("conf");
         var modifiedContent = editor.getValue();
-        const result = await eel.acceptContent(modifiedContent)();
+        const chart1Data = await eel.data_knob_estimation(modifiedContent)();
+        var a = $.parseJSON(chart1Data);
+        rec.innerText = a["rules"];
+        console.log(a["rules"])
+        renderChart(chart1Data, "knob_estimation");
       }
 
       async function start_run() {
         update_data();
         const pollingInterval = 65_000;
-        eel.start_run();
         interval = setInterval(update_data, pollingInterval);
-        var tests = document.getElementsByName("test");
-        for (var i = 0; i < tests.length; i++) {
-          if (tests[i].checked) {
-            const result = await eel.acceptContent(tests[i].id)();
+        var run_setting = document.getElementsByName("test");
+        var run_value = [];
+        for (var i = 0; i < run_setting.length; i++) {
+          if (run_setting[i].checked) {
+            run_value.push(run_setting[i].id);
           }
         }
+        console.log(run_value);
+        eel.start_run(run_value);
       }
 
       async function update_data() {

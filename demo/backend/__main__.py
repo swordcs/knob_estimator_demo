@@ -1,13 +1,18 @@
 import os
-import time
 import eel
+import yaml
 import json
+import requests
+
+API_PREFIX = "http://82.156.154.239:30000/"
+
 count = 0
 collecting = False
 total_data = [0] + [49.29, 2566.77, 3215.7, 47.24, 458.04, 38.65, 49.43, 3280.04, 47.01, 49.62, 3766.31, 50.06, 49.94, 3491.7, 51.37, 51.14, 3082.84, 39.09, 645.55, 4061.83, 3302.93, 50.98, 50.06, 778.12, 48.67, 4397.96, 51.18, 49.34, 49.73, 49.32, 50.29, 51.01, 47.15, 4566.44, 749.6, 495.23, 50.31, 653.21, 49.49, 446.33, 42.25, 1183.44, 712.32, 388.35, 403.85, 50.83, 38.62, 50.42, 50.92, 439.13, 48.59, 3301.76, 3296.42, 50.07, 3507.23, 592.61, 39.2, 49.4, 389.07, 1446.03, 49.34, 41.99, 49.57, 409.57, 47.6, 51.58, 51.95, 49.76, 3549.84, 51.75, 52.35, 48.91, 50.51, 50.76, 4203.87, 51.66, 49.44, 50.26, 408.19, 51.83, 52.53, 50.87, 50.02, 48.98, 2549.92, 713.27, 37.73, 49.12, 51.78, 50.77, 52.17, 36.18, 2507.51, 2700.17, 3705.44, 2709.57, 51.75, 49.12, 3194.99, 3497.34]
 
 experience = None
 knob_effect = None
+
 with open("demo/backend/share/experience.json") as f:
     experience = json.load(f)
 with open("demo/backend/share/perf_stat_tpcc2.json") as f:
@@ -15,22 +20,18 @@ with open("demo/backend/share/perf_stat_tpcc2.json") as f:
 
 
 @eel.expose
-def hello():
-    print('Hello from %s' % time.time())
-
+def load_file(yamlContent):
+    response = requests.post(API_PREFIX + "load_file", data={"yaml": yamlContent})
+    return response.status_code == 200
 
 @eel.expose
 def data_workload_feature(key):
-
+    response = requests.get(API_PREFIX + "workload_feature", params={"key": key})
+    data = response.json()
     assert key in experience.keys()
-    suid = [(k, v) for k, v in experience[key]['feature'][0].items()]
-    opts = [(k, v) for k, v in experience[key]['feature'][1].items()]
-    suid = sorted(suid, key=lambda x: x[1], reverse=True)
-    opts = sorted(opts, key=lambda x: x[1], reverse=True)
-    suid_table = {"SELECT": "S", "INSERT": "I", "UPDATE": "U", "DELETE": "D"}
-    all_feature = [suid_table[k] for k, _ in suid] + [k for k, _ in opts][:min(6, len(opts))]
-    suid_feature = [{"name": suid_table[k], "value": v} for k, v in suid]
-    opts_feature = [{"name": k, "value": v} for k, v in opts][:min(6, len(opts))]
+    all_feature = data.get("all_feature", [])
+    suid_feature = data.get("suid_feature", [])
+    opts_feature = data.get("opts_feature", [])
     data = {
         "tooltip": {
             "trigger": "item",
@@ -89,7 +90,6 @@ def data_workload_feature(key):
             "data": opts_feature
         }]
     }
-
     return json.dumps(data)
 
 
@@ -250,14 +250,19 @@ def data_knob_effect(key):
     return json.dumps(data)
 
 
-est_count = 0
-
 
 @eel.expose
-def data_knob_estimation():
-    global est_count
-    est_data = [480, 312]
-    est_count += 1
+def data_knob_estimation(yamlContent):
+    response = requests.post(API_PREFIX + "knob_estimation", data={"yaml": yamlContent})
+
+    # {"estimation": [0.0, 0.0], "rules": [(rule, impact)]}
+    data = response.json()
+    estimation = [data["pred_old"], data["pred_new"]]
+    rules = data["rules"]
+    rule_impact = []
+    for i in range(len(rules)):
+        rule_impact.append(str(i + 1) +". " +  str(rules[i][0]) + " : " + ("Negative" if rules[i][1]<0 else "Positive"))
+    rule_impact = "\n".join(rule_impact)
     data = {
         "tooltip": {
             "trigger": "item"
@@ -273,7 +278,7 @@ def data_knob_estimation():
         }],
         "series": [{
             "type": "bar",
-            "data": est_data,
+            "data": estimation,
             "markPoint": {
                 "data": [{
                     "type": "max",
@@ -294,7 +299,8 @@ def data_knob_estimation():
                     "name": "Average"
                 }]
             }
-        }]
+        }],
+        "rules": rule_impact
     }
     return json.dumps(data)
 
@@ -351,12 +357,12 @@ chart_data = {
 
 
 @eel.expose
-def start_run():
+def start_run(run_value):
     global collecting
     print("run ok stated")
     collecting = True
-
-
+    response = requests.post(API_PREFIX + "start_run", data={"run_value": str(run_value)})
+    return response.status_code == 200
 @eel.expose
 def get_chart_data():
     global count
@@ -371,13 +377,8 @@ def get_chart_data():
 def get_count():
     global count
     old_count = count
-    count = min(100, count + 1)
     return old_count
 
-
-@eel.expose
-def acceptContent(modifiedContent):
-    print("接收到的最终修改后的内容是：" + modifiedContent)
 
 
 if __name__ == "__main__":

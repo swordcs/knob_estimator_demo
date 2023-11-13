@@ -405,7 +405,6 @@
         }
       });
 
-      const sleep = ms => new Promise(r => setTimeout(r, ms));
       async function renderChart(chartData, chartElementId) {
         const chartElement = document.getElementById(chartElementId);
         const chart = echarts.init(chartElement);
@@ -417,17 +416,11 @@
         const chart1Data = await eel.data_workload_feature(key)();
         const chart2Data = await eel.data_knob_importance(key)();
         renderChart(chart1Data, "workload_feature");
-        await sleep(500)
         renderChart(chart2Data, "knob_importance");
       }
 
-      async function initializeEditor(data) {
-        var editor = ace.edit("config_preview");
-        editor.setTheme("ace/theme/dawn");
-        editor.setFontSize(16);
-        editor.session.setMode("ace/mode/yaml");
-        editor.setValue(data);
-        editor.clearSelection();
+      function loadFile(yamlContent){
+        eel.load_file(yamlContent);
       }
 
       function handleFile() {
@@ -437,49 +430,18 @@
           var reader = new FileReader();
           reader.onload = function () {
             var yamlContent = this.result;
-            initializeEditor(yamlContent);
+            var editor = ace.edit("config_preview");
+            editor.setTheme("ace/theme/dawn");
+            editor.setFontSize(16);
+            editor.session.setMode("ace/mode/yaml");
+            editor.setValue(yamlContent);
+            editor.clearSelection();
+            
+            loadFile(yamlContent);
           }
           reader.readAsText(file);
         }
-        else {
-          var yamlContent = `host:
-  host: 127.0.0.1
-  host_user: postgres
-  ssh_port: 22
-database:
-  port: 5432
-  user: postgres
-  name: tpcc
-  HOME: /opt/postgres
-training:
-  data_path: /home/postgres/DBMind/data
-  size: 100
-  sample_policy: LHS 
-  workload:
-    name: tpcc
-    HOME: /home/postgres/benchbase
-  knob_candidates:
-    - wal_buffers
-    - commit_delay
-    - effective_cache_size
-    - enable_nestloop
-    - plan_cache_mode
-    - random_page_cost
-    - shared_buffers
-    - work_mem
-    - full_page_writes
-    - geqo_selection_bias
-    - max_wal_size
-    - maintenance_work_mem
-estimation:
-  sample: 10
-  exp_num: 10
-  model_path: /home/postgres/ycsb_model.pkl
-`;
-          initializeEditor(yamlContent);
-        }
       }
-
     </script>
     <!-- endbuild -->
 </body>
