@@ -423,6 +423,7 @@
         var editor = ace.edit("config_preview");
         var yamlContent = editor.getValue();
         eel.load_file(yamlContent);
+        alert("Load File Finished!")
         console.log(yamlContent);
       }
 

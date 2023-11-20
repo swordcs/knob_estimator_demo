@@ -5,22 +5,22 @@ old_conf:
     max_wal_size: 2000MB
     random_page_cost: 200
     work_mem: 280000
-    enable_nestloop: on
-    full_page_writes: off
+    enable_nestloop: 'on'
+    full_page_writes: 'off'
     plan_cache_mode: auto
     commit_delay: 1000
     shared_buffers: 500000
     wal_buffers: 15000
 
-old_conf:
+new_conf:
     effective_cache_size: 30000000KB
     geqo_selection_bias: 2
     maintenance_work_mem: 600000KB
     max_wal_size: 2000MB
     random_page_cost: 20
     work_mem: 280000
-    enable_nestloop: on
-    full_page_writes: off
+    enable_nestloop: 'on'
+    full_page_writes: 'off'
     plan_cache_mode: force_generic_plan
     commit_delay: 1000
     shared_buffers: 500000

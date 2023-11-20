@@ -4,7 +4,7 @@ import yaml
 import json
 import requests
 
-API_PREFIX = "http://localhost:5001/"
+API_PREFIX = "http://localhost:5000/"
 
 count = 0
 collecting = False
@@ -265,7 +265,7 @@ def data_knob_estimation(yamlContent):
     rules = data["rules"]
     rule_impact = []
     for i in range(len(rules)):
-        rule_impact.append(str(i + 1) +". " +  str(rules[i][0]) + " : " + ("Negative" if rules[i][1]<0 else "Positive"))
+        rule_impact.append(str(i + 1) +". " +  str(rules[i][0]) + " : " + ("Negative " if rules[i][1]<0 else "Positive " ) + str(int(rules[i][1])))
     rule_impact = "\n".join(rule_impact)
     data = {
         "tooltip": {
