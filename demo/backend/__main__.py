@@ -1,10 +1,9 @@
 import os
 import eel
-import yaml
 import json
 import requests
 
-API_PREFIX = "http://localhost:5000/"
+API_PREFIX = "http://82.156.154.239:5001/"
 
 count = 0
 collecting = False
@@ -367,6 +366,7 @@ def start_run(run_value):
     collecting = True
     response = requests.post(API_PREFIX + "start_run", data={"run_value": str(run_value)})
     return response.status_code == 200
+
 @eel.expose
 def get_chart_data():
     global count
@@ -387,4 +387,4 @@ def get_count():
 
 if __name__ == "__main__":
     eel.init(str(os.path.split(os.path.realpath(__file__))[0]) + '/../static_web')
-    eel.start('index.html', mode='chrome')
+    eel.start('index.html', mode=None)
